@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Settings for local dev only
-.env
+.env    
