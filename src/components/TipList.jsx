@@ -25,7 +25,7 @@ function TipList() {
 		<>
 			<FilterBar />
 			{tips.map((tip) => (
-				<TipCard key={tip._id} /> //{...tip}
+				<TipCard key={tip._id} {...tip}/>
 			))}
 		</>
 	);

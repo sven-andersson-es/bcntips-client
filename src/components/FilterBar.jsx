@@ -26,7 +26,7 @@ function FilterBar() {
 	return (
 		<>
 			{categories.map((btn) => (
-				<FilterButton key={btn._id} /> //{...btn}
+				<FilterButton key={btn._id} {...btn}/> //{...btn}
 			))}
 		</>
 	);
