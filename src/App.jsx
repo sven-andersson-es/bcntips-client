@@ -1,4 +1,4 @@
-import {Routes, Route} from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
 
 //COMPONENTS
 import Navbar from "./components/NavBar";
@@ -7,12 +7,14 @@ import HomePage from "./pages/HomePage";
 function App() {
 	return (
 		<div className="App">
-			<Navbar />
+			<header>
+				<Navbar />
+			</header>
+			<main>
+				<Routes>
+					<Route path="/" element={<HomePage />} />
 
-			<Routes>
-				<Route path="/" element={<HomePage />} />
-
-				{/* <Route
+					{/* <Route
             path="/projects"
             element={ <IsPrivate> <ProjectListPage /> </IsPrivate> } 
           />
@@ -29,7 +31,8 @@ function App() {
           
           <Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} />
           <Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} /> */}
-			</Routes>
+				</Routes>
+			</main>
 		</div>
 	);
 }

@@ -1,8 +1,8 @@
 function NavBar() {
 	return (
-		<>
+		<section className="max-width-container">
 			<p>NavBar</p>
-		</>
+		</section>
 	);
 }
 

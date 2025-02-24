@@ -22,12 +22,11 @@ function TipList() {
 	}, []);
 
 	return (
-		<>
-			<FilterBar />
+		<section className="max-width-container tip-list">
 			{tips.map((tip) => (
 				<TipCard key={tip._id} {...tip}/>
 			))}
-		</>
+		</section>
 	);
 }
 

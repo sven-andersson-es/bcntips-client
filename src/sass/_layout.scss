@@ -1,0 +1,38 @@
+@use "base";
+.App {
+	background-color: base.$background-color;
+    min-height: 100vh;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+    padding: 0;
+	.max-width-container {
+		width: 100%;
+		margin-right: auto;
+		margin-left: auto;
+        padding: 0 base.$nudge * 2;
+		@include base.responsive("large") {
+			max-width: 992px;
+            padding: 0;
+		}
+	}
+	.full-width-container {
+		width: 100%;
+        padding: 0 base.$nudge * 2;
+		@include base.responsive("large") {
+            padding: 0;
+		}
+	}
+}
+
+// Header
+header {
+	nav {
+	}
+}
+
+// Main
+main {
+}
+
+// Footer

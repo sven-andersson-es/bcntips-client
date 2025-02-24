@@ -24,11 +24,11 @@ function FilterBar() {
     
 
 	return (
-		<>
+		<section className="max-width-container">
 			{categories.map((btn) => (
 				<FilterButton key={btn._id} {...btn}/> //{...btn}
 			))}
-		</>
+		</section>
 	);
 }
 
