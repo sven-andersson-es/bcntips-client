@@ -24,7 +24,7 @@ function FilterBar() {
     
 
 	return (
-		<section className="max-width-container">
+		<section className="max-width-container filter-bar">
 			{categories.map((btn) => (
 				<FilterButton key={btn._id} {...btn}/> //{...btn}
 			))}

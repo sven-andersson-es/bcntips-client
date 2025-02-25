@@ -3,7 +3,7 @@ import axios from "axios";
 class AuthService {
 	constructor() {
 		this.api = axios.create({
-			baseURL: import.meta.env.SERVER_URL,
+			baseURL: import.meta.env.VITE_BCNTIPS_API_BASE_URL,
 		});
 		// Axio intercept function
 		this.api.interceptors.request.use((config) => {

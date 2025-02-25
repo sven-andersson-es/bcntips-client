@@ -3,7 +3,7 @@ import axios from "axios";
 class CategoryService {
 	constructor() {
 		this.api = axios.create({
-			baseURL: import.meta.env.SERVER_URL || "http://localhost:5005",
+			baseURL: import.meta.env.VITE_BCNTIPS_API_BASE_URL,
 		});
 
 		// Axio intercept function

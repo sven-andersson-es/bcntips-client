@@ -6,8 +6,11 @@ $font-family: Verdana, sans-serif;
 $base-font-size: 16px;
 // Colors
 $background-color: #cccccc;
+$white-color: #ffffff;
 $text-color: #222222;
 $icon-color: #cccccc;
+$border-light-color: #ABABAB;
+$border-active-color: #222222;
 
 // Map for breakpoints
 $breakpoints: (
@@ -48,13 +51,21 @@ $nudge: $base-font-size / 2;
 	padding: 0;
 }
 
+:root {
+	font-size: $base-font-size *1;
+	@include responsive("large") {
+		font-size: $base-font-size *1.2;
+	}
+}
+
 body {
 	font-family: $font-family;
-	font-size: $base-font-size;
+
 	// Add accessible line-height
 	line-height: 1.4;
 	// Improve text rendering
 	-webkit-font-smoothing: antialiased;
+	
 }
 // Improve media defaults
 img,
@@ -98,4 +109,9 @@ h6 {
 // Create a root stacking context
 #root {
 	isolation: isolate;
+}
+
+// Set default transition on button
+button {
+	transition: 300ms;
 }

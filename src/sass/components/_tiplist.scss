@@ -3,29 +3,34 @@
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 1fr;
-	gap: base.$nudge * 2;
+	gap: 0.5rem * 2;
 }
 .tip-card {
 	display: flex;
 	background-color: #ffffff;
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	&:hover,
+	&:active.tip-card,
+	&:focus {
+		box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+	}
 	&__image {
 		width: 30%;
 		position: relative;
 		img {
 			width: 100%;
 			height: 100%;
-			max-height: 150px;
+			max-height: 10rem;
 			object-fit: cover;
 		}
 	}
 	&__category-icon {
 		position: absolute;
-		width: base.$nudge * 3;
+		width: 0.5rem * 3;
 		height: auto;
-		top: base.$nudge;
-		left: base.$nudge;
-		padding: base.$nudge / 2;
+		top: 0.5rem;
+		left: 0.5rem;
+		padding: 0.25rem;
 		background-color: base.$icon-color;
 		border-radius: 50%;
 		svg {
@@ -33,55 +38,52 @@
 			height: auto;
 		}
 		@include base.responsive("large") {
-			width: base.$nudge * 4;
-			padding: base.$nudge / 1.5;
 		}
 	}
 	&__content {
 		position: relative;
 		width: 70%;
-		padding: base.$nudge;
+		padding: 0.5rem;
 	}
 	&__title {
 		font-size: 0.8rem;
 		font-weight: 700;
 		@include base.responsive("medium") {
-			font-size: 1rem;
 		}
 	}
 	&__intro-text {
 		font-size: 0.8rem;
 		@include base.responsive("medium") {
-			font-size: 1rem;
 		}
 	}
 	&__tag {
 		display: inline-block;
 		font-size: 0.7rem;
-		line-height: 1;
+		line-height: 1.1;
 		border-radius: 2rem;
-		padding: base.$nudge / 2 base.$nudge base.$nudge / 1.5;
+		padding: 0.2rem 0.6rem 0.25rem;
 		background-color: base.$icon-color;
 		&--barrio {
 		}
 	}
 	&__like-button {
 		position: absolute;
-		width: base.$nudge * 3;
-		height: base.$nudge * 3;
-		top: base.$nudge;
-		right: base.$nudge;
-		padding: base.$nudge / 2;
+		width: 1.5rem;
+		height: 1.5rem;
+		top: 0.5rem;
+		right: 0.5rem;
+		padding: 0.15rem;
 		border: none;
 		background-color: transparent;
-		$svgColor: cccccc;
-		background-image: url('data:image/svg+xml,<svg fill="%23' + $svgColor + '" xmlns="http://www.w3.org/2000/svg"><path d="M10.1 15.55L10 15.65L9.89 15.55C5.14 11.24 2 8.39 2 5.5C2 3.5 3.5 2 5.5 2C7.04 2 8.54 3 9.07 4.36H10.93C11.46 3 12.96 2 14.5 2C16.5 2 18 3.5 18 5.5C18 8.39 14.86 11.24 10.1 15.55ZM14.5 0C12.76 0 11.09 0.81 10 2.08C8.91 0.81 7.24 0 5.5 0C2.42 0 0 2.41 0 5.5C0 9.27 3.4 12.36 8.55 17.03L10 18.35L11.45 17.03C16.6 12.36 20 9.27 20 5.5C20 2.41 17.58 0 14.5 0Z" /></svg>');
-		background-size: contain;
+		color: #cccccc;
 		&:hover,
 		&:active.tip-card,
 		&:focus {
-			$svgColor: FF0000;
-			background-image: url('data:image/svg+xml,<svg fill="%23' + $svgColor + '" xmlns="http://www.w3.org/2000/svg"><path d="M10.1 15.55L10 15.65L9.89 15.55C5.14 11.24 2 8.39 2 5.5C2 3.5 3.5 2 5.5 2C7.04 2 8.54 3 9.07 4.36H10.93C11.46 3 12.96 2 14.5 2C16.5 2 18 3.5 18 5.5C18 8.39 14.86 11.24 10.1 15.55ZM14.5 0C12.76 0 11.09 0.81 10 2.08C8.91 0.81 7.24 0 5.5 0C2.42 0 0 2.41 0 5.5C0 9.27 3.4 12.36 8.55 17.03L10 18.35L11.45 17.03C16.6 12.36 20 9.27 20 5.5C20 2.41 17.58 0 14.5 0Z" /></svg>');
+			color: #ff0000;
+		}
+		svg {
+			width: 100%;
+			height: auto;
 		}
 	}
 }

@@ -1,0 +1,31 @@
+@use "../base";
+
+.filter-bar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 1.5rem;
+	&__button {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		padding: 0.5rem 0.75rem;
+		border-radius: 2rem;
+		background-color: base.$icon-color;
+		border: 1px solid base.$border-light-color;
+		&:hover,
+		&:active.tip-card,
+		&:focus {
+			border-color: base.$border-active-color;
+            background-color: base.$white-color;
+		}
+	}
+	&__icon {
+		width: 1rem;
+		height: auto;
+	}
+	&__category-title {
+		white-space: nowrap;
+		font-size: 0.8rem;
+	}
+}
