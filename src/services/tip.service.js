@@ -22,8 +22,8 @@ class TipService {
 		return this.api.post("/api/tips", requestBody);
 	};
 
-	getAllTips = () => {
-		return this.api.get("/api/tips");
+	getAllTips = (filter) => {
+		return this.api.get(`/api/tips${filter ? filter : ""}`);
 	};
 
 	getTip = (tipId) => {

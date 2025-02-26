@@ -10,7 +10,8 @@ import tipService from "../services/tip.service";
 
 function HomePage() {
 	const [tips, setTips] = useState([]);
-	const [filter, setFilter] = useState({});
+  const [filterArray, setFilterArray] = useState([]);
+	const [filter, setFilter] = useState("");
 
 	const getAllTips = () => {
 		tipService
@@ -19,13 +20,16 @@ function HomePage() {
 			.catch((error) => console.log(error));
 	};
 
-  const filterTips = (filter) => {
-    const {categories,barrios} = filter;
-    const filteredTips = tips.filter((tip) => {
-      return tip.category.includes(categories) && tip.barrio.includes(barrios)
-    })
-    setTips(filteredTips)
-  }
+  // const filterTips = (type,value,action) => {
+  //   filter
+  //   if (action === true) {
+      
+  //   }
+
+    
+
+  //   setFilter(filterString)
+  // }
 
 	useEffect(() => {
 		getAllTips(filter);
@@ -35,7 +39,8 @@ function HomePage() {
 	return (
 		<>
 			<GoogleMap tips={tips} />
-			<FilterBar filter={setFilter}/>
+			{/* <FilterBar filter={filterTips}/> */}
+			<FilterBar/>
 			<TipList tips={tips} />
 		</>
 	);
