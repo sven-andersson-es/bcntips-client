@@ -1,8 +1,6 @@
 import {
 	APIProvider,
 	Map,
-	AdvancedMarker,
-    Pin
 } from "@vis.gl/react-google-maps";
 
 //COMPONENTS
@@ -12,11 +10,9 @@ const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 function GoogleMap(props) {
 	const { tips } = props;
-	//console.log(tips);
 
 	return (
-		<section className="full-width-container map-container">
-
+		<section className="full-width-container map">
 			<APIProvider apiKey={API_KEY}>
 				<Map
 					style={{ width: "100%", height: "20rem" }}
@@ -29,7 +25,7 @@ function GoogleMap(props) {
 					defaultHeading={316.5}
 				>
 					{tips.map((tip) => (
-                        <GoggleMapMarker key={tip._id} {...tip}/>
+						<GoggleMapMarker key={tip._id} {...tip} />
 					))}
 				</Map>
 			</APIProvider>

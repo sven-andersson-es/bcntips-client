@@ -1,0 +1,25 @@
+@use "../base";
+.map {
+	margin-bottom: 1.5rem;
+	&__marker {
+	}
+	&__category-icon {
+		svg {
+			//fill: #fff !important;
+			path {
+				fill: #fff !important;
+			}
+		}
+	}
+	&__info-window {
+		h3 {
+			font-family: base.$font-family;
+            font-size: 0.8rem;
+            font-weight: 700;
+		}
+        p {
+            font-family: base.$font-family;
+            font-size: 0.8rem;
+        }
+	}
+}

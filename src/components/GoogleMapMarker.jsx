@@ -14,7 +14,7 @@ function GoggleMapMarker(props) {
 	const decodedIcon = atob(props.category.categoryIcon);
 	return (
 		<>
-			<AdvancedMarker
+			<AdvancedMarker className="map__marker"
 				ref={markerRef}
 				onClick={() => setInfowindowOpen(true)}
 				position={{
@@ -24,24 +24,25 @@ function GoggleMapMarker(props) {
 				title={props.title}
 			>
 				<Pin
-					background={"#22ccff"}
-					borderColor={"#1e89a1"}
-					glyphColor={"#0f677a"}
+					background={"#222222"}
+					borderColor={"#222222"}
+					glyphColor={"#ffffff"}
+                    scale={1.2}
 				>
 					<div
-						//className="tip-card__category-icon"
+						className="map__category-icon"
 						dangerouslySetInnerHTML={{ __html: decodedIcon }}
 					/>
 				</Pin>
 			</AdvancedMarker>
 			{infowindowOpen && (
 				<InfoWindow
-                className="test"
+                className="map__info-window"
 					anchor={marker}
 					maxWidth={200}
 					onCloseClick={() => setInfowindowOpen(false)}
 				>
-					<h2>{props.title}</h2>
+					<h3>{props.title}</h3>
                     <p>{props.introText}</p>
 				</InfoWindow>
 			)}
