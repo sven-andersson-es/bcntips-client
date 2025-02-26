@@ -4,22 +4,8 @@ import { useState, useEffect } from "react";
 import FilterBar from "../components/FilterBar";
 import TipCard from "../components/TipCard";
 
-//SERVICES
-import tipService from "../services/tip.service";
-
-function TipList() {
-	const [tips, setTips] = useState([]);
-
-	const getAllTips = () => {
-		tipService
-			.getAllTips()
-			.then((response) => setTips(response.data))
-			.catch((error) => console.log(error));
-	};
-
-	useEffect(() => {
-		getAllTips();
-	}, []);
+function TipList(props) {
+	const {tips} = props;
 
 	return (
 		<section className="max-width-container tip-list">
