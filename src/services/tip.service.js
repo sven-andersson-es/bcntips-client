@@ -22,8 +22,13 @@ class TipService {
 		return this.api.post("/api/tips", requestBody);
 	};
 
+	// getAllTips = (filter) => {
+	// 	return this.api.get(`/api/tips?category=12341%2C12342%2C12343&barrio=22341%2C22342`);
+	// };
 	getAllTips = (filter) => {
-		return this.api.get(`/api/tips${filter ? filter : ""}`);
+		console.log("filter in the service: ", filter);
+		
+		return this.api.get(`/api/tips${filter ? "?"+filter : ""}`);
 	};
 
 	getTip = (tipId) => {

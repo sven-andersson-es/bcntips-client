@@ -10,37 +10,51 @@ import tipService from "../services/tip.service";
 
 function HomePage() {
 	const [tips, setTips] = useState([]);
-  const [filterArray, setFilterArray] = useState([]);
+	const [filterObject, setFilterObject] = useState({
+		category: [],
+		barrio: [],
+	});
 	const [filter, setFilter] = useState("");
 
-	const getAllTips = () => {
+	const getAllTips = (filter) => {
 		tipService
-			.getAllTips()
+			.getAllTips(filter)
 			.then((response) => setTips(response.data))
 			.catch((error) => console.log(error));
 	};
 
-  // const filterTips = (type,value,action) => {
-  //   filter
-  //   if (action === true) {
-      
-  //   }
+	const filterTips = (type, id, action) => {
+		console.log("filterObject: ", filterObject);
 
-    
+		let newObject = filterObject;
+		if (action) {
+			if (newObject[type].indexOf(id) === -1) {
+				newObject[type].push(id);
+			}
+		} else {
+			if (newObject[type].indexOf(id) != -1) {
+				const reducedArray = newObject[type].filter((item) => item != id);
+				newObject = { ...newObject, [type]: reducedArray };
+			}
+		}
+		console.log("newObject: ", newObject);
 
-  //   setFilter(filterString)
-  // }
+		setFilterObject(newObject);
+
+		const queryStrings = new URLSearchParams(newObject);
+		setFilter(queryStrings.toString());
+
+		console.log("queryStrings: ", queryStrings.toString());
+	};
 
 	useEffect(() => {
 		getAllTips(filter);
 	}, [filter]);
 
-
 	return (
 		<>
 			<GoogleMap tips={tips} />
-			{/* <FilterBar filter={filterTips}/> */}
-			<FilterBar/>
+			<FilterBar filterTips={filterTips}/>
 			<TipList tips={tips} />
 		</>
 	);

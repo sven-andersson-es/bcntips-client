@@ -6,7 +6,8 @@ import FilterButton from "../components/FilterButton";
 //SERVICES
 import categoryService from "../services/category.service";
 
-function FilterBar() {
+function FilterBar(props) {
+	const {filterTips} = props;
 	const [categories, setCategories] = useState([]);
 
 	const getAllCategories = () => {
@@ -26,7 +27,7 @@ function FilterBar() {
 	return (
 		<section className="max-width-container filter-bar">
 			{categories.map((btn) => (
-				<FilterButton key={btn._id} {...btn}/> //{...btn}
+				<FilterButton key={btn._id} {...btn} filterTips={filterTips}/> //{...btn}
 			))}
 		</section>
 	);
