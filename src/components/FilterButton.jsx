@@ -1,11 +1,15 @@
+import { useState, useEffect } from "react";
+
 function FilterButton(props) {
-	const { categoryName, categoryIcon, filterTips } = props;
+	const [btnActive, setBtnActive] = useState(false);
+
+	const { _id, categoryName, categoryIcon, filterTips } = props;
 	const decodedIcon = atob(categoryIcon);
 	console.log(props);
 
 	return (
 		<>
-			<button className="filter-bar__button" onClick={() => {filterTips("category", "67b08a41b694f84800747f6e", true)}}>
+			<button className={`filter-bar__button${btnActive ? "--active" : ""}`} onClick={() => {filterTips("category", _id, btnActive ? false : true), setBtnActive(!btnActive)}}>
 				<div
 					className="filter-bar__icon"
 					dangerouslySetInnerHTML={{ __html: decodedIcon }}

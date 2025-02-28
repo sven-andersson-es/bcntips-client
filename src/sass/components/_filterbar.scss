@@ -13,12 +13,14 @@
 		border-radius: 2rem;
 		background-color: base.$icon-color;
 		border: 1px solid base.$border-light-color;
-		&:hover,
-		&:active.tip-card,
-		&:focus {
+		&:hover {
 			border-color: base.$border-active-color;
-            background-color: base.$white-color;
 		}
+        &--active {
+            @extend .filter-bar__button;
+            border-color: base.$border-active-color;
+            background-color: base.$white-color;
+        }
 	}
 	&__icon {
 		width: 1rem;

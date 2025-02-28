@@ -26,22 +26,22 @@ function HomePage() {
 	const filterTips = (type, id, action) => {
 		console.log("filterObject: ", filterObject);
 
-		let newObject = filterObject;
+		let newFilterObject = filterObject;
 		if (action) {
-			if (newObject[type].indexOf(id) === -1) {
-				newObject[type].push(id);
+			if (newFilterObject[type].indexOf(id) === -1) {
+				newFilterObject[type].push(id);
 			}
 		} else {
-			if (newObject[type].indexOf(id) != -1) {
-				const reducedArray = newObject[type].filter((item) => item != id);
-				newObject = { ...newObject, [type]: reducedArray };
+			if (newFilterObject[type].indexOf(id) != -1) {
+				const reducedArray = newFilterObject[type].filter((item) => item != id);
+				newFilterObject = { ...newFilterObject, [type]: reducedArray };
 			}
 		}
-		console.log("newObject: ", newObject);
+		console.log("newFilterObject: ", newFilterObject);
 
-		setFilterObject(newObject);
+		setFilterObject(newFilterObject);
 
-		const queryStrings = new URLSearchParams(newObject);
+		const queryStrings = new URLSearchParams(newFilterObject);
 		setFilter(queryStrings.toString());
 
 		console.log("queryStrings: ", queryStrings.toString());
