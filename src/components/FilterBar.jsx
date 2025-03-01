@@ -21,7 +21,7 @@ function FilterBar(props) {
 		getAllCategories();
 	}, []);
 
-    console.log(categories);
+    //console.log(categories);
     
 
 	return (

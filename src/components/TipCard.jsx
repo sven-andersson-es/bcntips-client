@@ -1,5 +1,5 @@
 function TipCard(props) {
-	console.log("card Props", props);
+	//console.log("card Props", props);
 
 	const {
 		title,

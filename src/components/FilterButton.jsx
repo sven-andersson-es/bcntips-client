@@ -5,7 +5,7 @@ function FilterButton(props) {
 
 	const { _id, categoryName, categoryIcon, filterTips } = props;
 	const decodedIcon = atob(categoryIcon);
-	console.log(props);
+	//console.log(props);
 
 	return (
 		<>

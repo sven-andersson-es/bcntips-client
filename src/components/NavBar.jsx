@@ -6,7 +6,8 @@ import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
 function NavBar(props) {
-	const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+	const { isLoggedIn, isLoggedInSuper, user, logOutUser } =
+		useContext(AuthContext);
 	const { menuActive, setMenuActive } = props;
 	const location = useLocation();
 	useEffect(() => {
@@ -150,6 +151,13 @@ function NavBar(props) {
 							</>
 						)}
 
+						{isLoggedInSuper && (
+							<>
+								<li>
+									<Link to="/tip/edit">Add a tip</Link>
+								</li>
+							</>
+						)}
 						{!isLoggedIn && (
 							<>
 								<li className="login">

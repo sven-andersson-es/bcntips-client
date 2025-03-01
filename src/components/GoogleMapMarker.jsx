@@ -10,7 +10,7 @@ function GoggleMapMarker(props) {
 	const [infowindowOpen, setInfowindowOpen] = useState(false);
 	const [markerRef, marker] = useAdvancedMarkerRef();
 
-	console.log("marker props ", props);
+	//console.log("marker props ", props);
 	const decodedIcon = atob(props.category.categoryIcon);
 	return (
 		<>
