@@ -1,0 +1,68 @@
+@use "../base";
+
+.nav-bar {
+	padding: 1.5rem 0 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	&__link {
+		color: base.$text-color;
+	}
+	&__main-menu {
+		background: base.$text-color;
+		position: absolute;
+		z-index: 2;
+		top: 4.4rem;
+		right: -110%;
+        transition: right 300ms ease;
+		width: 100%;
+		height: calc(100vh - 4.4rem);
+        @include base.responsive("large") {
+            top: 4rem;
+            height: calc(100vh - 4rem);
+        }
+        nav {
+            
+            ul {
+                margin-top: 2rem;
+                list-style: none;
+                li {
+                    a {
+                        color: base.$white-color;
+                        font-weight: 700;
+                        text-decoration: none;
+                    }
+                    margin-bottom: 1rem;
+                    &.login {
+                        margin-top: 2rem;
+                    }
+                }
+            }
+        }
+	}
+}
+.active-menu {
+	.nav-bar {
+		&__link {
+			color: base.$white-color;
+		}
+		&__hamburger {
+			&--first {
+				transform-origin: 10px 10px;
+				transform: rotate(45deg);
+				fill: base.$white-color;
+			}
+			&--middle {
+				display: none;
+			}
+			&--last {
+				transform-origin: 7px 18px;
+				transform: rotate(-45deg);
+				fill: base.$white-color;
+			}
+		}
+        &__main-menu {
+            right: 0;
+        }
+	}
+}

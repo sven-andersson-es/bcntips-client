@@ -13,7 +13,7 @@ function FilterButton(props) {
 				<div
 					className="filter-bar__icon"
 					dangerouslySetInnerHTML={{ __html: decodedIcon }}
-				/>{" "}
+				/>
 				<div className="filter-bar__category-title">{categoryName}</div>
 			</button>
 		</>

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Routes, Route } from "react-router-dom";
 
 //COMPONENTS
@@ -5,10 +7,11 @@ import Navbar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 
 function App() {
+  const [menuActive,setMenuActive] = useState(false);
 	return (
-		<div className="App">
+		<div className={`App ${menuActive ? "active-menu" : ""}`}>
 			<header>
-				<Navbar />
+				<Navbar menuActive={menuActive} setMenuActive={setMenuActive}/>
 			</header>
 			<main>
 				<Routes>

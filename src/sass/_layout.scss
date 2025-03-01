@@ -6,6 +6,7 @@
 	display: flex;
 	flex-direction: column;
     padding: 0;
+    transition: 300ms;
 	.max-width-container {
 		width: 100%;
 		margin-right: auto;
@@ -22,6 +23,9 @@
 		@include base.responsive("large") {
             padding: 0;
 		}
+	}
+    &.active-menu {
+		background-color: base.$text-color;
 	}
 }
 
