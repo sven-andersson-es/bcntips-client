@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+//CONTEXT
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.context";
+
 function NavBar(props) {
+	const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
 	const { menuActive, setMenuActive } = props;
 	const location = useLocation();
 	useEffect(() => {
@@ -133,12 +138,28 @@ function NavBar(props) {
 						<li>
 							<Link to="/about">About</Link>
 						</li>
-						<li>
-							<Link to="/contribute">Contribute</Link>
-						</li>
-						<li className="login">
-							<Link to="/login">Login</Link>
-						</li>
+
+						{isLoggedIn && (
+							<>
+								<li className="login">
+									<Link to="/my-page">My page</Link>
+								</li>
+								<li>
+									<a onClick={logOutUser}>Logout {user && user.name}</a>
+								</li>
+							</>
+						)}
+
+						{!isLoggedIn && (
+							<>
+								<li className="login">
+									<Link to="/signup">Sign up and contribute</Link>
+								</li>
+								<li>
+									<Link to="/login">Login</Link>
+								</li>
+							</>
+						)}
 					</ul>
 				</nav>
 			</div>
