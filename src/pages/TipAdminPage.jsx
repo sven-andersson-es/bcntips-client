@@ -1,34 +1,18 @@
 //HOOKS
-import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 
 //SERVICES
 import tipService from "../services/tip.service";
 import barrioService from "../services/barrio.service";
 import categoryService from "../services/category.service";
 
+//CONTEXT
+import { MessageContext } from "../context/message.context";
+
 function TipAdminPage() {
-	/* 
-	
-	{
-
-    "title": "SandwiChez Bruniquer",
-    "introText": "Here you can have a coffee and something to eat. Laptop friendly.",
-    "bodyText": "",
-    "street": "Carrer de Bruniquer",
-    "streetNo": "33, 35",
-    "zip": "08024",
-    "city": "Barcelona",
-    "mapPlaceId": "ChIJXWFTsPGjpBIR49n2OILFREw",
-    "mapLat": 41.405195888198065,
-    "mapLng": 2.1611619450403854,
-    "category": "67b9c230f3a05961df985783",
-    "barrio": "67b9c230f3a05961df985783",
-    "user": "67b9ca9c0fc9aa49dbb884e9"
-
-	}
-
-	*/
+	const { triggerModal } = useContext(MessageContext);
+	const navigate = useNavigate();
 
 	const tipColumns = {
 		title: "",
@@ -43,7 +27,7 @@ function TipAdminPage() {
 		mapLng: 0,
 		category: "",
 		barrio: "",
-		user: "67b9ca9c0fc9aa49dbb884e9", //Add this id from the active user
+		user: "67b9ca9c0fc9aa49dbb884e9", //To-do - Add this id from the active user
 	};
 	const { tipId } = useParams();
 	const [create, setCreate] = useState(true);
@@ -107,13 +91,24 @@ function TipAdminPage() {
 	const createTip = (object) => {
 		tipService
 			.createTip(object)
-			.then((response) => setTip(response.data))
+			.then((response) => {
+				setTip(response.data);
+				navigate("/");
+				triggerModal(
+					true,
+					`The tip ${response.data.title}, has successfully been created.`,false);
+			})
 			.catch((error) => console.log(error));
 	};
 	const updateTip = (id, object) => {
-		updateTip
-			.createTip(id, object)
-			.then((response) => setTip(response.data))
+		tipService
+			.updateTip(id, object)
+			.then((response) => {
+				setTip(response.data);
+				triggerModal(
+					true,
+					`The tip ${response.data.title}, has successfully been updated.`,false);
+			})
 			.catch((error) => console.log(error));
 	};
 
@@ -145,7 +140,7 @@ function TipAdminPage() {
 		if (create) {
 			createTip(tipObject);
 		} else {
-			//updateTip(id,tipObject)
+			updateTip(tipId, tipObject);
 		}
 	};
 

@@ -1,7 +1,14 @@
+import { Link } from "react-router-dom";
+
+//CONTEXT
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.context";
+
 function TipCard(props) {
 	//console.log("card Props", props);
-
+	const { isLoggedIn, isLoggedInSuper } = useContext(AuthContext);
 	const {
+		_id,
 		title,
 		introText,
 		barrio: { barrioName },
@@ -27,6 +34,12 @@ function TipCard(props) {
 					<div className="tip-card__tag">
 						<span className="tip-card__tag--barrio">{barrioName}</span>
 					</div>
+					{isLoggedInSuper && (
+							<>
+								<div className="tip-card__edit"><Link to={`/tip/update/${_id}`}>Edit</Link></div>
+							</>
+						)}
+					
 					<button className="tip-card__like-button">
 						<svg
 							viewBox="0 0 20 19"
@@ -38,10 +51,10 @@ function TipCard(props) {
 								fill="currentColor"
 							/>
 						</svg>
-						
 					</button>
 				</div>
 			</article>
+			
 		</>
 	);
 }
