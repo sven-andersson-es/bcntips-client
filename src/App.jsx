@@ -26,35 +26,18 @@ function App() {
 					<Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} />
           <Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} />
-          {/* <Route
-            path="/tip/edit"
-            element={  <TipAdminPage />  } 
-          /> */}
+
           <Route
-            path="/tip/edit"
+            path="/tip/create"
             element={ <IsPrivateSuper> <TipAdminPage /> </IsPrivateSuper> } 
           />
           <Route
             path="/tip/edit/:tipId"
             element={ <IsPrivateSuper> <TipAdminPage /> </IsPrivateSuper> } 
           />
+  
 
-					{/* <Route
-            path="/projects"
-            element={ <IsPrivate> <ProjectListPage /> </IsPrivate> } 
-          />
-  
-          <Route
-            path="/projects/:projectId"
-            element={ <IsPrivate> <ProjectDetailsPage /> </IsPrivate> }
-          />
-  
-          <Route
-            path="/projects/edit/:projectId"
-            element={ <IsPrivate> <EditProjectPage /> </IsPrivate> } 
-          />
-          
-           */}
+
 				</Routes>
 			</main>
 		</div>

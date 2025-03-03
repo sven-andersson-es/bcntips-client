@@ -6,6 +6,7 @@
 	transition: 300ms;
 	line-height: 1;
 	background-color: base.$button-bg-color;
+	border: 1px solid base.$button-border-color;
     cursor: pointer;
 	&:hover,
 	&:active,

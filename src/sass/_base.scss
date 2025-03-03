@@ -11,11 +11,12 @@ $text-color: #222222;
 $black-color: #222222;
 $grey-color: #444444;
 $icon-color: #cccccc;
-$border-light-color: #ABABAB;
+$border-light-color: #ababab;
 $border-active-color: #222222;
-$button-bg-color: #CCCCCC;
+$button-bg-color: #cccccc;
 $button-bg-active-color: #ffffff;
-$error-color: #CC0000;
+$button-border-color: #222222;
+$error-color: #cc0000;
 
 // Map for breakpoints
 $breakpoints: (
@@ -57,11 +58,10 @@ $nudge: $base-font-size / 2;
 }
 
 :root {
-	font-size: $base-font-size *1;
+	font-size: $base-font-size * 1;
 	@include responsive("large") {
-		font-size: $base-font-size *1;
+		font-size: $base-font-size * 1;
 	}
-	
 }
 
 body {
@@ -71,7 +71,6 @@ body {
 	line-height: 1.4;
 	// Improve text rendering
 	-webkit-font-smoothing: antialiased;
-	
 }
 // Improve media defaults
 img,
@@ -112,6 +111,7 @@ h6 {
 	text-wrap: balance;
 	font-weight: 400;
 }
+
 
 // Create a root stacking context
 #root {
