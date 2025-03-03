@@ -8,9 +8,14 @@ $base-font-size: 16px;
 $background-color: #cccccc;
 $white-color: #ffffff;
 $text-color: #222222;
+$black-color: #222222;
+$grey-color: #444444;
 $icon-color: #cccccc;
 $border-light-color: #ABABAB;
 $border-active-color: #222222;
+$button-bg-color: #CCCCCC;
+$button-bg-active-color: #ffffff;
+$error-color: #CC0000;
 
 // Map for breakpoints
 $breakpoints: (
@@ -54,8 +59,9 @@ $nudge: $base-font-size / 2;
 :root {
 	font-size: $base-font-size *1;
 	@include responsive("large") {
-		font-size: $base-font-size *1.2;
+		font-size: $base-font-size *1;
 	}
+	
 }
 
 body {
@@ -104,6 +110,7 @@ h4,
 h5,
 h6 {
 	text-wrap: balance;
+	font-weight: 400;
 }
 
 // Create a root stacking context

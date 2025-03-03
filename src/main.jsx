@@ -4,11 +4,18 @@ import "./sass/index.scss";
 import App from "./App.jsx";
 import { BrowserRouter as Router } from "react-router-dom";
 
+//CONTEXT
+import { AuthProviderWrapper } from "./context/auth.context";
+import { MessageProviderWrapper } from "./context/message.context";
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
 		<Router>
-			<App />
+			<AuthProviderWrapper>
+				<MessageProviderWrapper>
+					<App />
+				</MessageProviderWrapper>
+			</AuthProviderWrapper>
 		</Router>
 	</StrictMode>
 );

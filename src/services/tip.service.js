@@ -26,7 +26,7 @@ class TipService {
 	// 	return this.api.get(`/api/tips?category=12341%2C12342%2C12343&barrio=22341%2C22342`);
 	// };
 	getAllTips = (filter) => {
-		console.log("filter in the service: ", filter);
+		//console.log("filter in the service: ", filter);
 		
 		return this.api.get(`/api/tips${filter ? "?"+filter : ""}`);
 	};

@@ -24,7 +24,7 @@ function HomePage() {
 	};
 
 	const filterTips = (type, id, action) => {
-		console.log("filterObject: ", filterObject);
+		//console.log("filterObject: ", filterObject);
 
 		let newFilterObject = filterObject;
 		if (action) {
@@ -37,14 +37,14 @@ function HomePage() {
 				newFilterObject = { ...newFilterObject, [type]: reducedArray };
 			}
 		}
-		console.log("newFilterObject: ", newFilterObject);
+		//console.log("newFilterObject: ", newFilterObject);
 
 		setFilterObject(newFilterObject);
 
 		const queryStrings = new URLSearchParams(newFilterObject);
 		setFilter(queryStrings.toString());
 
-		console.log("queryStrings: ", queryStrings.toString());
+		//console.log("queryStrings: ", queryStrings.toString());
 	};
 
 	useEffect(() => {
