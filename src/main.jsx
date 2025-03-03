@@ -11,11 +11,11 @@ import { MessageProviderWrapper } from "./context/message.context";
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
 		<Router>
-			<AuthProviderWrapper>
-				<MessageProviderWrapper>
+			<MessageProviderWrapper>
+				<AuthProviderWrapper>
 					<App />
-				</MessageProviderWrapper>
-			</AuthProviderWrapper>
+				</AuthProviderWrapper>
+			</MessageProviderWrapper>
 		</Router>
 	</StrictMode>
 );
