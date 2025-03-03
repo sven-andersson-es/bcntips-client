@@ -55,6 +55,7 @@ function LoginPage(props) {
 								placeholder="Fill in your username"
 								value={email}
 								onChange={handleEmail}
+								data-cy="username"
 							/>
 						</div>
 						<div className="form__group">
@@ -66,11 +67,12 @@ function LoginPage(props) {
 								placeholder="Fill in your password"
 								value={password}
 								onChange={handlePassword}
+								data-cy="password"
 							/>
 						</div>
 					</section>
 					<section className="form__section">
-						<button type="submit" className="btn">Login</button>
+						<button type="submit" className="btn" data-cy="login-button">Login</button>
 					</section>
 				</form>
 				{errorMessage && <p className="form__error-message">{errorMessage}</p>}

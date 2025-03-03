@@ -16,6 +16,7 @@ import IsAnon from "./components/IsAnon";
 
 function App() {
   const [menuActive,setMenuActive] = useState(false);
+  
 	return (
 		<div className={`App ${menuActive ? "active-menu" : ""}`}>
 			<header>
@@ -32,7 +33,7 @@ function App() {
             element={ <IsPrivateSuper> <TipAdminPage /> </IsPrivateSuper> } 
           />
           <Route
-            path="/tip/edit/:tipId"
+            path="/tip/update/:tipId"
             element={ <IsPrivateSuper> <TipAdminPage /> </IsPrivateSuper> } 
           />
   

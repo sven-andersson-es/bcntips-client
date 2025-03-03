@@ -9,8 +9,9 @@ import { AuthProviderWrapper } from "./context/auth.context";
 import { MessageProviderWrapper } from "./context/message.context";
 
 createRoot(document.getElementById("root")).render(
+	
 	<StrictMode>
-		<Router>
+		<Router forceRefresh={true}>
 			<MessageProviderWrapper>
 				<AuthProviderWrapper>
 					<App />

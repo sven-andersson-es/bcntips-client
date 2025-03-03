@@ -1,10 +1,10 @@
 //HOOKS
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 //SERVICES
 import tipService from "../services/tip.service";
-//import barrioService from "../services/barrio.service";
+import barrioService from "../services/barrio.service";
 import categoryService from "../services/category.service";
 
 function TipAdminPage() {
@@ -43,14 +43,23 @@ function TipAdminPage() {
 		mapLng: 0,
 		category: "",
 		barrio: "",
-		user: "",
+		user: "67b9ca9c0fc9aa49dbb884e9", //Add this id from the active user
 	};
 	const { tipId } = useParams();
+	const [create, setCreate] = useState(true);
 	const [form, setForm] = useState(tipColumns);
-	const [adminNew, setAdminNew] = useState(true);
 	const [tip, setTip] = useState({});
 	const [categories, setCategories] = useState([]);
-	//const [barrios, setBarrios] = useState([]);
+	const [barrios, setBarrios] = useState([]);
+	const pageLocation = useLocation();
+	console.log(tipId);
+
+	const formMode = () => {
+		if (pageLocation.pathname.includes("tip/update") && tipId) {
+			setCreate(false);
+			getTip(tipId);
+		}
+	};
 
 	const getAllCategories = () => {
 		categoryService
@@ -59,17 +68,39 @@ function TipAdminPage() {
 			.catch((error) => console.log(error));
 	};
 
-	/* const getAllCategories = () => {
-		categoryService
-			.getAllCategories()
-			.then((response) => setCategories(response.data))
+	const getAllBarrios = () => {
+		barrioService
+			.getAllBarrios()
+			.then((response) => setBarrios(response.data))
 			.catch((error) => console.log(error));
-	}; */
+	};
 
 	const getTip = (id) => {
+		console.log("get tip running");
+
 		tipService
 			.getTip(id)
-			.then((response) => setTip(response.data))
+			.then((response) => {
+				console.log(response.data);
+				const repsonseTip = response.data;
+				const responseObject = {
+					title: repsonseTip.title,
+					introText: repsonseTip.introText,
+					bodyText: repsonseTip.bodyText,
+					street: repsonseTip.street,
+					streetNo: repsonseTip.streetNo,
+					zip: repsonseTip.zip,
+					city: repsonseTip.city,
+					mapPlaceId: repsonseTip.mapPlaceId,
+					mapLat: repsonseTip.mapLat.$numberDecimal,
+					mapLng: repsonseTip.mapLng.$numberDecimal,
+					category: repsonseTip.category._id,
+					barrio: repsonseTip.barrio._id,
+					user: repsonseTip.user._id,
+				};
+
+				setForm(responseObject);
+			})
 			.catch((error) => console.log(error));
 	};
 
@@ -96,7 +127,7 @@ function TipAdminPage() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const editProduct = {
+		const tipObject = {
 			title: form.title,
 			introText: form.introText,
 			bodyText: form.bodyText,
@@ -111,27 +142,26 @@ function TipAdminPage() {
 			barrio: form.barrio,
 			user: form.user,
 		};
-		if (productForm.show === "edit") {
-			updateProduct(form.id, editProduct);
-		}
-		if (productForm.show === "add") {
-			addProduct(editProduct);
+		if (create) {
+			createTip(tipObject);
+		} else {
+			//updateTip(id,tipObject)
 		}
 	};
 
-		useEffect(() => {
+	useEffect(() => {
+		formMode();
 		getAllCategories();
-		// if (productForm.show === "edit") {
-		// 	getProduct(productForm.id);
-		// }
+		getAllBarrios();
 	}, []);
 
 	return (
 		<>
 			<section className="max-width-container">
 				<div className="form">
-					<h1>{adminNew ? "Add a new tip" : "Edit tip: " + form.title}</h1>
+					<h1>{create ? "Add a new tip" : "Edit tip: " + form.title}</h1>
 					<form onSubmit={handleSubmit}>
+						<input type="hidden" value={form.user} name="user" id="user" />
 						{form.id && <input value={form.id} name="id" type="hidden" />}
 
 						<section className="form__section">
@@ -246,7 +276,7 @@ function TipAdminPage() {
 							<div className="form__group">
 								<label htmlFor="title">Longitude</label>
 								<input
-									value={form.mapLat}
+									value={form.mapLng}
 									onChange={handleInput}
 									name="mapLng"
 									id="mapLng"
@@ -269,6 +299,25 @@ function TipAdminPage() {
 										return (
 											<option key={category._id} value={category._id}>
 												{category.categoryName}
+											</option>
+										);
+									})}
+								</select>
+							</div>
+							<div className="form__group">
+								<label htmlFor="barrio">Barrio</label>
+								<select
+									onChange={handleInput}
+									name="barrio"
+									id="barrio"
+									value={form.barrio}
+									required
+								>
+									<option value="">--Choose a barrio--</option>
+									{barrios.map((barrio) => {
+										return (
+											<option key={barrio._id} value={barrio._id}>
+												{barrio.barrioName}
 											</option>
 										);
 									})}
