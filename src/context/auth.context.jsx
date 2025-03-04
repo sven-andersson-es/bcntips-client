@@ -65,7 +65,9 @@ function AuthProviderWrapper(props) {
 		triggerModal(true, `You are now logged out.`,true)
 
 	};
-
+	const manageFavourites = (id,add) => {
+		//const userObject
+	}
 	useEffect(() => {
 		// Run the function after the initial render,
 		// after the components in the App render for the first time.

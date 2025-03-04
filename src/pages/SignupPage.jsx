@@ -1,18 +1,33 @@
-import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import authService from "../services/auth.service";
 
 //CONTEXT
 import { MessageContext } from "../context/message.context";
 
 function SignupPage(props) {
-    const { triggerModal } = useContext(MessageContext);
+	const { triggerModal } = useContext(MessageContext);
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [favouriteTips, setFavouriteTips] = useState([]);
+
 	const [errorMessage, setErrorMessage] = useState(undefined);
+
+	const location = useLocation();
+	const setLocationFavouriteTipsId = () => {
+		// get the props from the favourite link on home page tip card component
+		if (location.state) {
+			const { favouriteId } = location.state;
+			const favouriteTipsArray = []
+			favouriteTipsArray.push(favouriteId)
+			setFavouriteTips(favouriteId);
+		} else {
+			setFavouriteTips([]);
+		}
+	};
 
 	const navigate = useNavigate();
 
@@ -23,17 +38,20 @@ function SignupPage(props) {
 
 	const handleSignupSubmit = (e) => {
 		e.preventDefault();
-		// Create an object representing the request body - TODO add possibility to add favouriteTips
-		const requestBody = { email, password, firstName, lastName, favouriteTips  };
+		// Create an object representing the request body
+		const requestBody = { email, password, firstName, lastName, favouriteTips };
 
 		authService
 			.signup(requestBody)
 			.then((response) => {
-                //console.log(response);
-                
-				navigate("/login");
-                triggerModal(true, `Welcome ${response.data.user.firstName}, you have successfully signed up to barcelonatips.com. You can now login.`,false)
+				//console.log(response);
 
+				navigate("/login");
+				triggerModal(
+					true,
+					`Welcome ${response.data.user.firstName}, you have successfully signed up to barcelonatips.com. You can now login.`,
+					false
+				);
 			})
 			.catch((error) => {
 				const errorDescription = error.response.data.message;
@@ -41,11 +59,14 @@ function SignupPage(props) {
 			});
 	};
 
+	useEffect(() => {
+		setLocationFavouriteTipsId();
+	}, []);
+
 	return (
 		<section className="max-width-container">
 			<div className="form">
-				<h1>Sign Up</h1>
-
+			{location.state ? <h1>Sign Up and save your favourite</h1> : <h1>Sign Up</h1>}
 				<form onSubmit={handleSignupSubmit}>
 					<section className="form__section">
 						<div className="form__group">
