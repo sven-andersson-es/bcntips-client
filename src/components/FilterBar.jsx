@@ -20,8 +20,6 @@ function FilterBar(props) {
 	useEffect(() => {
 		getAllCategories();
 	}, []);
-
-    //console.log(categories);
     
 
 	return (

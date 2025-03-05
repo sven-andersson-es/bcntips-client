@@ -60,7 +60,6 @@ function TipAdminPage() {
 	};
 
 	const getTip = (id) => {
-		console.log("get tip running");
 
 		tipService
 			.getTip(id)

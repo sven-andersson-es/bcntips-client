@@ -1,11 +1,11 @@
+import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 //CONTEXT
-import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
 function TipCard(props) {
-	//console.log("card Props", props);
+	const [favourite, setFavourite] = useState(false);
 	const { isLoggedIn, isLoggedInSuper } = useContext(AuthContext);
 	const {
 		_id,
@@ -13,13 +13,25 @@ function TipCard(props) {
 		introText,
 		barrio: { barrioName },
 		category: { categoryIcon, categoryName },
-		favourite,
-		updateFavouriteTips
+		favouriteTips,
+		updateFavouriteTips,
 	} = props;
-	console.log(favourite);
-	
+	//const favourite = true
 	const decodedIcon = atob(categoryIcon);
-	const favouriteData = {favouriteId: _id}
+	const favouriteData = { favouriteId: _id };
+
+	const setCardFavourite = (tipId) => {
+		const isFavourite = favouriteTips.find((id) => {
+			return id === tipId;
+		});
+		setFavourite(isFavourite)
+		
+	};
+
+	useEffect(() => {
+		setCardFavourite(_id);
+	}, [updateFavouriteTips]);
+
 	return (
 		<>
 			<article className="tip-card">
@@ -49,7 +61,16 @@ function TipCard(props) {
 
 					{isLoggedIn && (
 						<>
-							<button onClick={() => {updateFavouriteTips(_id)}} className={favourite ? "tip-card__like-button--liked" : "tip-card__like-button"}>
+							<button
+								onClick={() => {
+									updateFavouriteTips(_id);
+								}}
+								className={
+									favourite
+										? "tip-card__like-button--liked"
+										: "tip-card__like-button"
+								}
+							>
 								<svg
 									viewBox="0 0 20 19"
 									fill="currentColor"
@@ -65,7 +86,11 @@ function TipCard(props) {
 					)}
 					{!isLoggedIn && (
 						<>
-							<Link to="/signup" state={favouriteData} className="tip-card__like-button">
+							<Link
+								to="/signup"
+								state={favouriteData}
+								className="tip-card__like-button"
+							>
 								<svg
 									viewBox="0 0 20 19"
 									fill="currentColor"

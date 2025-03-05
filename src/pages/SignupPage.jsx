@@ -44,7 +44,6 @@ function SignupPage(props) {
 		authService
 			.signup(requestBody)
 			.then((response) => {
-				//console.log(response);
 
 				navigate("/login");
 				triggerModal(

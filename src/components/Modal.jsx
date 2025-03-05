@@ -1,8 +1,6 @@
 function Modal(props) {
 	const { modalActive, setModalActive, modalMessage, modalMessageType } =
 		props.props;
-	//console.log(props.props);
-	//console.log(modalActive);
 
 	if (modalActive) {
 		return (

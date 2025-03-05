@@ -28,33 +28,12 @@ function HomePage() {
 		tipService
 			.getAllTips(filter)
 			.then((response) => {
-				if (isLoggedIn) {
-					const getTipsWithFavourites = async () => {
-						const favourites = await getFavouriteTips();
-						// return getFavouriteTips()
-						console.log("favourites ", favourites);
-
-						const tipsWithFavourites = response.data.map((tip) => {
-							let favourite = false;
-							if (tip._id.indexOf(favourites)) {
-								favourite = true;
-							}
-							return { ...tip, favourite };
-						});
-						setTips(tipsWithFavourites);
-						console.log(tipsWithFavourites);
-					};
-					getTipsWithFavourites();
-				} else {
-					setTips(response.data);
-				}
+				setTips(response.data);
 			})
-			// .then(la response del getFaovouritetips)
 			.catch((error) => console.log(error));
 	};
 
 	const filterTips = (type, id, action) => {
-		//console.log("filterObject: ", filterObject);
 
 		let newFilterObject = filterObject;
 		if (action) {
@@ -67,42 +46,43 @@ function HomePage() {
 				newFilterObject = { ...newFilterObject, [type]: reducedArray };
 			}
 		}
-		//console.log("newFilterObject: ", newFilterObject);
 
 		setFilterObject(newFilterObject);
 
 		const queryStrings = new URLSearchParams(newFilterObject);
 		setFilter(queryStrings.toString());
 
-		//console.log("queryStrings: ", queryStrings.toString());
 	};
 
 	const getFavouriteTips = () => {
-		if (isLoggedIn) {
-			authService.getFavourites().then((response) => {
-				return response.data.favouriteTips;
-			});
-		} else {
-			return [];
-		}
+		authService.getFavourites().then((response) => {
+			setFavouriteTips(response.data.favouriteTips);
+		});
 	};
 
 	const updateFavouriteTips = (tipId) => {
 		authService.updateFavourites(tipId).then((response) => {
-			setFavouriteTips(response);
+			setFavouriteTips(response.data);
 		});
 	};
 	useEffect(() => {
 		if (!authIsLoading) {
 			getAllTips(filter);
+			if (isLoggedIn) {
+				getFavouriteTips();
+			}
 		}
-	}, [filter, authIsLoading]);
+	}, [filter, authIsLoading, isLoggedIn]);
 
 	return (
 		<>
 			<GoogleMap tips={tips} />
 			<FilterBar filterTips={filterTips} />
-			<TipList tips={tips} updateFavouriteTips={updateFavouriteTips} />
+			<TipList
+				tips={tips}
+				favouriteTips={favouriteTips}
+				updateFavouriteTips={updateFavouriteTips}
+			/>
 		</>
 	);
 }
