@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage"
 import LoginPage from "./pages/LoginPage"
 import TipAdminPage from "./pages/TipAdminPage"
+import TipDetailPage from "./pages/TipDetailPage";
 
 //AUTH COMPONENTS
 import IsPrivate from "./components/IsPrivate";
@@ -25,20 +26,20 @@ function App() {
 			<main>
 				<Routes>
 					<Route path="/" element={<HomePage />} />
-          <Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} />
-          <Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} />
-
-          <Route
-            path="/tip/create"
-            element={ <IsPrivateSuper> <TipAdminPage /> </IsPrivateSuper> } 
-          />
-          <Route
-            path="/tip/update/:tipId"
-            element={ <IsPrivateSuper> <TipAdminPage /> </IsPrivateSuper> } 
-          />
-  
-
-
+					<Route
+						path="/:tipId"
+						element={ <TipDetailPage />  } 
+					/>
+          			<Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} />
+          			<Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} />
+					<Route
+						path="/tip/create"
+						element={ <IsPrivateSuper> <TipAdminPage /> </IsPrivateSuper> } 
+					/>
+					<Route
+						path="/tip/update/:tipId"
+						element={ <IsPrivateSuper> <TipAdminPage /> </IsPrivateSuper> } 
+					/>
 				</Routes>
 			</main>
 		</div>

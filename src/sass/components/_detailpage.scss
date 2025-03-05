@@ -1,27 +1,12 @@
 @use "../base";
-.tip-list {
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 1fr;
-	gap: 0.5rem * 2;
-	@include base.responsive("medium") {
-		grid-template-columns: repeat(3, 1fr);
-	}
-	@include base.responsive("large") {
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
-.tip-card {
+.detail-page {
 	display: flex;
-	background-color: #ffffff;
-	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 	@include base.responsive("medium") {
 		flex-direction: column;
 	}
 	&:hover,
-	&:active.tip-card,
+	&:active,
 	&:focus {
-		box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
 	}
 	&__image {
 		width: 30%;
@@ -62,9 +47,9 @@
 		}
 	}
 	&__title {
-		font-size: 0.8rem;
+		font-size: 1.5rem;
 		margin-bottom: 0.5rem;
-		font-weight: 700;
+		font-weight: 400;
 		@include base.responsive("medium") {
 		}
 	}
@@ -94,7 +79,7 @@
 		padding: 0.15rem;
 		border: none;
 		background-color: transparent;
-		color: #cccccc;
+		color: base.$black-color;
 		cursor: pointer;
 		// &:hover,
 		// &:active.tip-card,
@@ -107,7 +92,7 @@
 			height: auto;
 		}
 		&--liked {
-			@extend .tip-card__like-button;
+			@extend .detail-page__like-button;
 			color: #ff0000;
 		}
 	}

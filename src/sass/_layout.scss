@@ -1,20 +1,22 @@
 @use "base";
 .App {
 	background-color: base.$background-color;
+	
     min-height: 100vh;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
     padding: 0;
+	padding-bottom: 4rem;
     transition: 300ms;
 	.max-width-container {
 		width: 100%;
 		margin-right: auto;
 		margin-left: auto;
-        padding: 0 base.$nudge * 2;
+        padding: 0 1rem;
 		@include base.responsive("large") {
 			max-width: 992px;
-            padding: 0;
+            padding: 1rem;
 		}
 	}
 	.full-width-container {

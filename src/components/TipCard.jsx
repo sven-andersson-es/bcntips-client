@@ -51,6 +51,9 @@ function TipCard(props) {
 					<div className="tip-card__tag">
 						<span className="tip-card__tag--barrio">{barrioName}</span>
 					</div>
+					<div className="tip-card__buttons">
+						<Link to={`/${_id}`}>Read more</Link>
+					</div>
 					{isLoggedInSuper && (
 						<>
 							<div className="tip-card__edit">
