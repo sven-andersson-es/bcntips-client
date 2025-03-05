@@ -13,7 +13,11 @@ function TipCard(props) {
 		introText,
 		barrio: { barrioName },
 		category: { categoryIcon, categoryName },
+		favourite,
+		updateFavouriteTips
 	} = props;
+	console.log(favourite);
+	
 	const decodedIcon = atob(categoryIcon);
 	const favouriteData = {favouriteId: _id}
 	return (
@@ -45,7 +49,7 @@ function TipCard(props) {
 
 					{isLoggedIn && (
 						<>
-							<button className="tip-card__like-button">
+							<button onClick={() => {updateFavouriteTips(_id)}} className={favourite ? "tip-card__like-button--liked" : "tip-card__like-button"}>
 								<svg
 									viewBox="0 0 20 19"
 									fill="currentColor"

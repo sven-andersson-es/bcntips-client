@@ -32,9 +32,14 @@ class AuthService {
 	getUserByUserId = (userId) => {
 		return this.api.get(`/users/${userId}`);
 	};
-	favouriteTipsAdd = (requestBody) => {
-		return this.api.get("/users/favouritetips/", requestBody);
+
+	getFavourites = () => {
+		return this.api.get("/auth/favourites");
 	};
+	updateFavourites = (tipId) => {
+		return this.api.put(`/auth/favourites/${tipId}`);
+	};
+
 }
 
 const authService = new AuthService();

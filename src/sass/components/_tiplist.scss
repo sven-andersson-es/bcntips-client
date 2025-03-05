@@ -76,14 +76,20 @@
 		border: none;
 		background-color: transparent;
 		color: #cccccc;
-		&:hover,
-		&:active.tip-card,
-		&:focus {
+		cursor: pointer;
+		// &:hover,
+		// &:active.tip-card,
+		// &:focus {
+		&:hover {
 			color: #ff0000;
 		}
 		svg {
 			width: 100%;
 			height: auto;
+		}
+		&--liked {
+			@extend .tip-card__like-button;
+			color: #ff0000;
 		}
 	}
 }

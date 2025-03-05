@@ -62,12 +62,9 @@ function AuthProviderWrapper(props) {
 		removeToken();
 		authenticateUser();
 		navigate("/");
-		triggerModal(true, `You are now logged out.`,true)
-
+		triggerModal(true, `You are now logged out.`, true);
 	};
-	const manageFavourites = (id,add) => {
-		//const userObject
-	}
+
 	useEffect(() => {
 		// Run the function after the initial render,
 		// after the components in the App render for the first time.
@@ -78,7 +75,7 @@ function AuthProviderWrapper(props) {
 		<AuthContext.Provider
 			value={{
 				isLoggedIn,
-                isLoggedInSuper,
+				isLoggedInSuper,
 				isLoading,
 				user,
 				storeToken,

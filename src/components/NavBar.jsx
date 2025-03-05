@@ -1,8 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 //CONTEXT
-import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
 function NavBar(props) {
