@@ -153,7 +153,7 @@ function NavBar(props) {
 						{isLoggedInSuper && (
 							<>
 								<li>
-									<Link to="/tip/create">Add a tip</Link>
+									<Link reloadDocument to="/tip/create">Add a tip</Link>
 								</li>
 							</>
 						)}

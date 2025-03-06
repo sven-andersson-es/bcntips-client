@@ -22,8 +22,8 @@ class TipService {
 		return this.api.post("/api/tips", requestBody);
 	};
 
-	getAllTips = (filter) => {		
-		return this.api.get(`/api/tips${filter ? "?"+filter : ""}`);
+	getAllTips = (filter) => {
+		return this.api.get(`/api/tips${filter ? "?" + filter : ""}`);
 	};
 
 	getTip = (tipId) => {
@@ -36,6 +36,9 @@ class TipService {
 
 	deleteTip = (tipId) => {
 		return this.api.delete(`/api/tips/${tipId}`);
+	};
+	uploadImage = (file) => {
+		return this.api.post("/api/image", file);
 	};
 }
 

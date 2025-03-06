@@ -40,6 +40,7 @@ function TipAdminPage() {
 	const [barrios, setBarrios] = useState([]);
 	const [searchPlace, setSearchPlace] = useState("");
 	const [searchPlaceResult, setSearchPlaceResult] = useState(undefined);
+	const [imageUrl, setImageUrl] = useState("");
 	const pageLocation = useLocation();
 
 	const formMode = () => {
@@ -87,6 +88,7 @@ function TipAdminPage() {
 				};
 
 				setForm(responseObject);
+				setImageUrl(repsonseTip.imageUrl);
 			})
 			.catch((error) => console.log(error));
 	};
@@ -121,6 +123,8 @@ function TipAdminPage() {
 
 	const handleInput = (event) => {
 		const value = event.target.value;
+		console.log("form:", form);
+
 		setForm({
 			...form,
 			[event.target.name]: value,
@@ -146,15 +150,35 @@ function TipAdminPage() {
 			barrio: form.barrio,
 			user: form.user,
 		};
+		const mergedObject = { ...tipObject, imageUrl: imageUrl };
+		console.log(mergedObject);
+
 		if (create) {
-			createTip(tipObject);
+			createTip(mergedObject);
 		} else {
-			updateTip(tipId, tipObject);
+			updateTip(tipId, mergedObject);
 		}
 	};
 
+	const handleFileUpload = (e) => {
+		// console.log("The file to be uploaded is: ", e.target.files[0]);
+
+		const uploadData = new FormData();
+
+		// imageUrl => this name has to be the same as in the model since we pass
+		// req.body to .create() method when creating a new movie in '/api/movies' POST route
+		uploadData.append("imageUrl", e.target.files[0]);
+
+		tipService
+			.uploadImage(uploadData)
+			.then((response) => {
+				setImageUrl(response.data.fileUrl);
+			})
+			.catch((error) => console.log(error));
+	};
+
 	// Search and autocomplete Maps Places
-	const handleSearchPlace = (e) => {	
+	const handleSearchPlace = (e) => {
 		if (e.target.value) {
 			setSearchPlace(e.target.value);
 			placesAutocomplete(e.target.value);
@@ -178,7 +202,8 @@ function TipAdminPage() {
 			.getPlace(placeId)
 			.then((response) => {
 				setSearchPlaceResult(undefined);
-				setForm(response)
+				const merged = { ...form, ...response };
+				setForm(merged);
 				//setSearchPlaceResult(response.data.suggestions);
 			})
 			.catch((error) => console.log(error));
@@ -196,7 +221,7 @@ function TipAdminPage() {
 				<div className="form">
 					<h1>{create ? "Add a new tip" : "Edit tip: " + form.title}</h1>
 					<div className="form__group">
-						<label htmlFor="title">
+						<label htmlFor="searchPlace">
 							Search for a place and autofill the form
 						</label>
 						<input
@@ -245,6 +270,7 @@ function TipAdminPage() {
 									required
 								/>
 							</div>
+
 							<div className="form__group">
 								<label htmlFor="title">Intro text</label>
 								<input
@@ -356,7 +382,7 @@ function TipAdminPage() {
 							<div className="form__group">
 								<label htmlFor="title">Latitude</label>
 								<input
-									value={form.mapLat} 
+									value={form.mapLat}
 									onChange={handleInput}
 									name="mapLat"
 									id="mapLat"
@@ -414,6 +440,31 @@ function TipAdminPage() {
 										);
 									})}
 								</select>
+							</div>
+						</section>
+						<section className="form__section">
+							{imageUrl && (
+								<div className="form__image-preview">
+									<img src={imageUrl} alt="" />
+								</div>
+							)}
+							<div className="form__group">
+								<label htmlFor="file">
+									{imageUrl ? "Change image" : "Upload image"}
+								</label>
+								<div className="form__file-buttons">
+									<input
+										type="file"
+										id="file"
+										className="form__file-input"
+										onChange={(e) => handleFileUpload(e)}
+									/>
+									{imageUrl && (
+										<button onClick={() => {setImageUrl("")}} className="btn--inline">
+											Remove
+										</button>
+									)}
+								</div>
 							</div>
 						</section>
 						<section className="form__section">
