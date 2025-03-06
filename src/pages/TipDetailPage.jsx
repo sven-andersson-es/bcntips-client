@@ -17,7 +17,7 @@ function TipDetailPage() {
 	const [favouriteTips, setFavouriteTips] = useState(null);
 	const [tip, setTip] = useState({});
 	const [loadingTip, setLoadingTip] = useState(true);
-	const [mapPlaceUri, setMapPlaceUri] = useState("https://maps.google.com");
+	//const [mapPlaceUri, setMapPlaceUri] = useState("https://maps.google.com");
 
 	const getTip = (tipId) => {
 		tipService
@@ -29,7 +29,7 @@ function TipDetailPage() {
 			})
 			.then((data) => {
 				getFavouriteTips();                
-                getMapsUri(data.mapPlaceId)
+                //getMapsUri(data.mapPlaceId)
 			})
 			.catch((error) => console.log(error));
 	};
@@ -100,7 +100,7 @@ function TipDetailPage() {
 								</span>
 							</div>
 							<div className="detail-page__google-button">
-								<a href={`${mapPlaceUri}`} className="btn__inverted">
+								<a href={tip.googleMapsUri ? tip.googleMapsUri : "https://maps.google.com" } className="btn__inverted">
                                 Get directions on Google Maps
 								</a>
 							</div>

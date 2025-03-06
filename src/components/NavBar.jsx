@@ -141,10 +141,10 @@ function NavBar(props) {
 
 						{isLoggedIn && (
 							<>
-								<li className="login">
+								{/* <li className="login">
 									<Link to="/my-page">My page</Link>
-								</li>
-								<li>
+								</li> */}
+								<li className="login">
 									<a onClick={logOutUser}>Logout {user && user.name}</a>
 								</li>
 							</>

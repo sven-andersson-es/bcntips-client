@@ -6,6 +6,7 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import tipService from "../services/tip.service";
 import barrioService from "../services/barrio.service";
 import categoryService from "../services/category.service";
+import placesService from "../services/places.service";
 
 //CONTEXT
 import { MessageContext } from "../context/message.context";
@@ -22,7 +23,9 @@ function TipAdminPage() {
 		streetNo: "",
 		zip: "",
 		city: "",
+		telephone: "",
 		mapPlaceId: "",
+		googleMapsUri: "",
 		mapLat: 0,
 		mapLng: 0,
 		category: "",
@@ -35,6 +38,8 @@ function TipAdminPage() {
 	const [tip, setTip] = useState({});
 	const [categories, setCategories] = useState([]);
 	const [barrios, setBarrios] = useState([]);
+	const [searchPlace, setSearchPlace] = useState("");
+	const [searchPlaceResult, setSearchPlaceResult] = useState(undefined);
 	const pageLocation = useLocation();
 
 	const formMode = () => {
@@ -59,11 +64,9 @@ function TipAdminPage() {
 	};
 
 	const getTip = (id) => {
-
 		tipService
 			.getTip(id)
 			.then((response) => {
-				console.log(response.data);
 				const repsonseTip = response.data;
 				const responseObject = {
 					title: repsonseTip.title,
@@ -73,7 +76,9 @@ function TipAdminPage() {
 					streetNo: repsonseTip.streetNo,
 					zip: repsonseTip.zip,
 					city: repsonseTip.city,
+					telephone: repsonseTip.telephone,
 					mapPlaceId: repsonseTip.mapPlaceId,
+					googleMapsUri: repsonseTip.googleMapsUri,
 					mapLat: repsonseTip.mapLat.$numberDecimal,
 					mapLng: repsonseTip.mapLng.$numberDecimal,
 					category: repsonseTip.category._id,
@@ -94,7 +99,9 @@ function TipAdminPage() {
 				navigate("/");
 				triggerModal(
 					true,
-					`The tip ${response.data.title}, has successfully been created.`,false);
+					`The tip ${response.data.title}, has successfully been created.`,
+					false
+				);
 			})
 			.catch((error) => console.log(error));
 	};
@@ -105,7 +112,9 @@ function TipAdminPage() {
 				setTip(response.data);
 				triggerModal(
 					true,
-					`The tip ${response.data.title}, has successfully been updated.`,false);
+					`The tip ${response.data.title}, has successfully been updated.`,
+					false
+				);
 			})
 			.catch((error) => console.log(error));
 	};
@@ -128,7 +137,9 @@ function TipAdminPage() {
 			streetNo: form.streetNo,
 			zip: form.zip,
 			city: form.city,
+			telephone: form.telephone,
 			mapPlaceId: form.mapPlaceId,
+			googleMapsUri: form.googleMapsUri,
 			mapLat: form.mapLat,
 			mapLng: form.mapLng,
 			category: form.category,
@@ -142,6 +153,37 @@ function TipAdminPage() {
 		}
 	};
 
+	// Search and autocomplete Maps Places
+	const handleSearchPlace = (e) => {	
+		if (e.target.value) {
+			setSearchPlace(e.target.value);
+			placesAutocomplete(e.target.value);
+		} else {
+			setSearchPlace(e.target.value);
+			setSearchPlaceResult(undefined);
+		}
+	};
+
+	const placesAutocomplete = (searchString) => {
+		placesService
+			.placesAutocomplete(searchString)
+			.then((response) => {
+				setSearchPlaceResult(response.data.suggestions);
+			})
+			.catch((error) => console.log(error));
+	};
+
+	const autocompleteTip = (placeId) => {
+		placesService
+			.getPlace(placeId)
+			.then((response) => {
+				setSearchPlaceResult(undefined);
+				setForm(response)
+				//setSearchPlaceResult(response.data.suggestions);
+			})
+			.catch((error) => console.log(error));
+	};
+
 	useEffect(() => {
 		formMode();
 		getAllCategories();
@@ -153,6 +195,39 @@ function TipAdminPage() {
 			<section className="max-width-container">
 				<div className="form">
 					<h1>{create ? "Add a new tip" : "Edit tip: " + form.title}</h1>
+					<div className="form__group">
+						<label htmlFor="title">
+							Search for a place and autofill the form
+						</label>
+						<input
+							value={searchPlace}
+							onChange={handleSearchPlace}
+							name="searchPlace"
+							id="searchPlace"
+							type="text"
+							placeholder="Search for the place you want to add"
+						/>
+					</div>
+
+					{searchPlaceResult && (
+						<>
+							<div className="form__autocomplete-suggestions">
+								<ul>
+									{searchPlaceResult.map((result) => (
+										<li
+											key={result.placePrediction.placeId}
+											onClick={() => {
+												autocompleteTip(result.placePrediction.placeId);
+											}}
+										>
+											{result.placePrediction.text.text}
+										</li>
+									))}
+								</ul>
+							</div>
+						</>
+					)}
+
 					<form onSubmit={handleSubmit}>
 						<input type="hidden" value={form.user} name="user" id="user" />
 						{form.id && <input value={form.id} name="id" type="hidden" />}
@@ -243,6 +318,18 @@ function TipAdminPage() {
 								/>
 							</div>
 							<div className="form__group">
+								<label htmlFor="title">Telephone</label>
+								<input
+									value={form.telephone}
+									onChange={handleInput}
+									name="telephone"
+									id="telephone"
+									type="text"
+									placeholder="Telephone +34..."
+									required
+								/>
+							</div>
+							<div className="form__group">
 								<label htmlFor="title">Google Map Place ID</label>
 								<input
 									value={form.mapPlaceId}
@@ -255,9 +342,21 @@ function TipAdminPage() {
 								/>
 							</div>
 							<div className="form__group">
+								<label htmlFor="title">Google Map Direct Uri</label>
+								<input
+									value={form.googleMapsUri}
+									onChange={handleInput}
+									name="googleMapsUri"
+									id="googleMapsUri"
+									type="text"
+									placeholder="Map Direct Uri"
+									readOnly
+								/>
+							</div>
+							<div className="form__group">
 								<label htmlFor="title">Latitude</label>
 								<input
-									value={form.mapLat}
+									value={form.mapLat} 
 									onChange={handleInput}
 									name="mapLat"
 									id="mapLat"
