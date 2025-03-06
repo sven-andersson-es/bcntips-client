@@ -36,7 +36,6 @@ function TipAdminPage() {
 	const [categories, setCategories] = useState([]);
 	const [barrios, setBarrios] = useState([]);
 	const pageLocation = useLocation();
-	console.log(tipId);
 
 	const formMode = () => {
 		if (pageLocation.pathname.includes("tip/update") && tipId) {

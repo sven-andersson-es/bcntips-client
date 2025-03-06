@@ -1,33 +1,32 @@
 @use "../base";
 .detail-page {
-	display: flex;
 	@include base.responsive("medium") {
-		flex-direction: column;
 	}
 	&:hover,
 	&:active,
 	&:focus {
 	}
 	&__image {
-		width: 30%;
+		width: 100%;
 		position: relative;
+		margin-bottom: 1rem;
 		img {
 			width: 100%;
 			height: 100%;
-			max-height: 10rem;
+			max-height: 15rem;
 			object-fit: cover;
-		}
-		@include base.responsive("medium") {
-			width: 100%;
+			@include base.responsive("medium") {
+				max-height: 20rem;
+			}
 		}
 	}
 	&__category-icon {
 		position: absolute;
-		width: 0.5rem * 3;
+		width: 0.5rem * 6;
 		height: auto;
-		top: 0.5rem;
-		left: 0.5rem;
-		padding: 0.25rem;
+		top: 1rem;
+		left: 1rem;
+		padding: 0.6rem;
 		background-color: base.$icon-color;
 		border-radius: 50%;
 		svg {
@@ -39,37 +38,66 @@
 	}
 	&__content {
 		position: relative;
-		width: 70%;
+		width: 100%;
 		padding: 0.5rem;
+		@include base.responsive("small") {
+			width: 80%;
+			margin: 0 auto;
+		}
 		@include base.responsive("medium") {
-			width: 100%;
-			padding-right: 3rem;
+			width: 70%;
+			margin: 0 auto;
+		}
+		@include base.responsive("large") {
+			width: 60%;
 		}
 	}
 	&__title {
-		font-size: 1.5rem;
-		margin-bottom: 0.5rem;
+		margin-bottom: 1.5rem;
+		h1 {
+			font-size: 1.5rem;
+			font-weight: 400;
+		}
+		@include base.responsive("medium") {
+		}
+	}
+	&__address {
+		font-size: 1rem;
+		margin-bottom: 1rem;
 		font-weight: 400;
 		@include base.responsive("medium") {
 		}
 	}
+    &__tag {
+		display: inline-block;
+		font-size: 0.9rem;
+		line-height: 1.1;
+		border-radius: 2rem;
+		padding: 0.4rem 1.2rem 0.5rem;
+		margin-bottom: 1.5rem;
+		background-color: base.$white-color;
+		&--barrio {
+		}
+	}
+	&__google-button {
+		margin-bottom: 1.5rem;
+		@include base.responsive("medium") {
+		}
+	}
 	&__intro-text {
-		font-size: 0.8rem;
+		font-size: 1rem;
+		font-weight: 700;
 		margin-bottom: 0.5rem;
 		@include base.responsive("medium") {
 		}
 	}
-	&__tag {
-		display: inline-block;
-		font-size: 0.7rem;
-		line-height: 1.1;
-		border-radius: 2rem;
-		padding: 0.2rem 0.6rem 0.25rem;
+	&__body-text {
+		font-size: 1rem;
 		margin-bottom: 0.5rem;
-		background-color: base.$icon-color;
-		&--barrio {
+		@include base.responsive("medium") {
 		}
 	}
+	
 	&__like-button {
 		position: absolute;
 		width: 1.5rem;

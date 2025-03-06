@@ -4,18 +4,20 @@ import { useParams, Link } from "react-router-dom";
 //SERVICES
 import tipService from "../services/tip.service";
 import authService from "../services/auth.service";
+import placesService from "../services/places.service";
 
 //CONTEXT
 import { AuthContext } from "../context/auth.context";
 
 function TipDetailPage() {
 	const { isLoggedIn, isLoggedInSuper } = useContext(AuthContext);
-	const [favourite, setFavourite] = useState(true);
+	const [favourite, setFavourite] = useState(false);
 	const { tipId: detailTipId } = useParams();
 
 	const [favouriteTips, setFavouriteTips] = useState(null);
 	const [tip, setTip] = useState({});
 	const [loadingTip, setLoadingTip] = useState(true);
+	const [mapPlaceUri, setMapPlaceUri] = useState("https://maps.google.com");
 
 	const getTip = (tipId) => {
 		tipService
@@ -26,7 +28,8 @@ function TipDetailPage() {
 				return response.data;
 			})
 			.then((data) => {
-				getFavouriteTips();
+				getFavouriteTips();                
+                getMapsUri(data.mapPlaceId)
 			})
 			.catch((error) => console.log(error));
 	};
@@ -36,7 +39,6 @@ function TipDetailPage() {
 			.getFavourites()
 			.then((response) => {
 				setFavouriteTips(response.data.favouriteTips);
-				console.log(favouriteTips);
 				return response.data.favouriteTips;
 			})
 			.then((favouriteTips) => {
@@ -45,22 +47,24 @@ function TipDetailPage() {
 						return id === tipId;
 					});
 					setFavourite(isFavourite);
-					console.log("favouriteTips", favouriteTips);
-					console.log("setFavourite", isFavourite);
 				};
 				setCardFavourite(detailTipId);
 			});
 	};
 
 	const updateFavouriteTips = (tipId) => {
-		authService
-			.updateFavourites(tipId)
-			.then((response) => {
-				setFavouriteTips(response.data);
-                getFavouriteTips();
-			})
+        authService.updateFavourites(tipId).then((response) => {
+            setFavouriteTips(response.data);
+			getFavouriteTips();
+		});
 	};
 
+    const getMapsUri = (mapPlaceId) => {
+        placesService.getMapsUri(mapPlaceId).then((response) => {            
+            setMapPlaceUri(response.data.googleMapsUri);
+        });
+    };
+    
 	useEffect(() => {
 		getTip(detailTipId);
 	}, []);
@@ -83,13 +87,25 @@ function TipDetailPage() {
 							/>
 						</div>
 						<div className="detail-page__content">
-							<div className="detail-page__title">{tip.title}</div>
-							<div className="detail-page__intro-text">{tip.introText}</div>
+							<div className="detail-page__title"><h1>{tip.title}</h1></div>
+							<address className="detail-page__address">
+								{tip.street}, {tip.streetNo}
+								<br />
+								{tip.zip}, {tip.city}
+								<br />
+							</address>
 							<div className="detail-page__tag">
 								<span className="detail-page__tag--barrio">
 									{tip.barrio.barrioName}
 								</span>
 							</div>
+							<div className="detail-page__google-button">
+								<a href={`${mapPlaceUri}`} className="btn__inverted">
+                                Get directions on Google Maps
+								</a>
+							</div>
+							<div className="detail-page__intro-text">{tip.introText}</div>
+							<div className="detail-page__body-text">{tip.bodyText}</div>
 
 							{isLoggedInSuper && (
 								<>
