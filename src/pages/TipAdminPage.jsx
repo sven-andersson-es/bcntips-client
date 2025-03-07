@@ -8,6 +8,13 @@ import barrioService from "../services/barrio.service";
 import categoryService from "../services/category.service";
 import placesService from "../services/places.service";
 
+//CLOUDINARY
+import cld from "../config/cloudinary.config";
+import { AdvancedImage } from "@cloudinary/react";
+import { scale } from "@cloudinary/url-gen/actions/resize";
+import { format, quality } from "@cloudinary/url-gen/actions/delivery";
+import { auto } from "@cloudinary/url-gen/qualifiers/format";
+
 //CONTEXT
 import { MessageContext } from "../context/message.context";
 
@@ -445,15 +452,21 @@ function TipAdminPage() {
 							</div>
 						</section>
 						<section className="form__section">
-						
 							{uploadingImage && (
 								<div className="loader__placeholder">
 									<div className="loader__spinner"></div>
 								</div>
 							)}
-							{imageUrl && (
+							{imageUrl && !uploadingImage && (
 								<div className="form__image-preview">
-									<img src={imageUrl} alt="" />
+									<AdvancedImage
+										cldImg={cld
+											.image(imageUrl)
+											.resize(scale().width(1200))
+											.delivery(quality(auto()))
+											.delivery(format(auto()))}
+										alt={tip.title}
+									/>
 								</div>
 							)}
 							<div className="form__group">

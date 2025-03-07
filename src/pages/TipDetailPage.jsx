@@ -1,6 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 
+//CLOUDINARY
+import cld from "../config/cloudinary.config";
+import { AdvancedImage } from "@cloudinary/react";
+import { scale } from "@cloudinary/url-gen/actions/resize";
+import { format, quality } from "@cloudinary/url-gen/actions/delivery";
+import { auto } from "@cloudinary/url-gen/qualifiers/format";
+
 //SERVICES
 import tipService from "../services/tip.service";
 import authService from "../services/auth.service";
@@ -68,7 +75,6 @@ function TipDetailPage() {
 	useEffect(() => {
 		getTip(detailTipId);
 	}, []);
-
 	return (
 		!loadingTip && (
 			<>
@@ -95,7 +101,14 @@ function TipDetailPage() {
 
 						{tip.imageUrl && (
 							<div className="detail-page__image">
-								<img src={tip.imageUrl} alt={tip.title} />
+								<AdvancedImage
+									cldImg={cld
+										.image(tip.imageUrl)
+										.resize(scale().width(1200))
+										.delivery(quality(auto()))
+										.delivery(format(auto()))}
+									alt={tip.title}
+								/>
 								<div
 									className="detail-page__category-icon"
 									dangerouslySetInnerHTML={{

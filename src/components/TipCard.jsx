@@ -1,6 +1,13 @@
 import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+//CLOUDINARY
+import cld from "../config/cloudinary.config";
+import { AdvancedImage } from "@cloudinary/react";
+import { scale } from "@cloudinary/url-gen/actions/resize";
+import { format, quality } from "@cloudinary/url-gen/actions/delivery";
+import { auto } from "@cloudinary/url-gen/qualifiers/format";
+
 //CONTEXT
 import { AuthContext } from "../context/auth.context";
 
@@ -42,7 +49,14 @@ function TipCard(props) {
 				{imageUrl && (
 					<div className="tip-card__image">
 						<Link to={`/${_id}`}>
-							<img src={imageUrl} alt={title} />
+						<AdvancedImage
+									cldImg={cld
+										.image(imageUrl)
+										.resize(scale().width(600))
+										.delivery(quality(auto()))
+										.delivery(format(auto()))}
+									alt={title}
+								/>
 						</Link>
 						<div
 							className="tip-card__category-icon"
