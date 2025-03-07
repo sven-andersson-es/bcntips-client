@@ -90,7 +90,7 @@ function TipCard(props) {
 						</div>
 						<div className="tip-card__content-layout-bottom">
 							<div className="tip-card__buttons">
-								<Link className="btn__small--white" to={`/${_id}`}>
+								<Link className="btn__small--white" to={`/tip/${_id}`}>
 									Read more
 								</Link>
 							</div>

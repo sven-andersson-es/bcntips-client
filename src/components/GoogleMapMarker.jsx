@@ -44,7 +44,7 @@ function GoggleMapMarker(props) {
 					onCloseClick={() => setInfowindowOpen(false)}
 				>
                     <p>{props.introText}</p>
-					<p className="read-more"><Link to={`/${props._id}`}>Read more</Link></p>
+					<p className="read-more"><Link to={`/tip/${props._id}`}>Read more</Link></p>
 				</InfoWindow>
 			)}
 		</>
