@@ -449,19 +449,26 @@ function TipAdminPage() {
 								</div>
 							)}
 							<div className="form__group">
-								<label htmlFor="file">
-									{imageUrl ? "Change image" : "Upload image"}
-								</label>
+								<label>{imageUrl ? "Change image" : "Upload image"}</label>
 								<div className="form__file-buttons">
+									<label className="form__file-button-label" htmlFor="file">
+										{imageUrl ? "Replace the image" : "Upload a new image"}
+									</label>
 									<input
 										type="file"
 										id="file"
 										className="form__file-input"
 										onChange={(e) => handleFileUpload(e)}
+										title=" "
 									/>
 									{imageUrl && (
-										<button onClick={() => {setImageUrl("")}} className="btn--inline">
-											Remove
+										<button
+											onClick={() => {
+												setImageUrl("");
+											}}
+											className="form__file-button-btn-delete btn--inline"
+										>
+											Remove image
 										</button>
 									)}
 								</div>
