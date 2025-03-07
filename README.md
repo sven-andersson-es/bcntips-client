@@ -13,7 +13,7 @@ The backend used is buils in node.js using MongoDB. [Read more about the backend
 The admin interface for logged in admins uses Google Places API for a quick start filling out the location data and Google Links. Then the personal touch is added with a description and the fact that the tips is selected.
 
 ## Technologies
-Barcelonatips is built using React, Axios, Google Maps API and Google Places API. The backend is built in Node.js and uses MongoDB as a Database. The backend provides all the neccesary CRUD endpoints to make the Frontend application work. The backend also includes an image upload endpoint using Cloudinary image storage service.
+Barcelonatips is built using React, Axios, Google Maps API and Google Places API. CSS has been developed using latest SASS. The backend is built in Node.js and uses MongoDB as a Database. The backend provides all the neccesary CRUD endpoints to make the Frontend application work. The backend also includes an image upload endpoint using Cloudinary image storage service.
 
 ## Development process
 The development has been undertaken as a single person project. The steps to finish the work are presented below. For the task management and planning of features in the application, GitHubs issues project tool has been used.
