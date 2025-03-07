@@ -12,14 +12,24 @@
 		}
 	}
 	&__info-window {
+		p {
+			font-family: base.$font-family;
+			font-size: 0.8rem;
+			&.read-more {
+				margin-top: 0.5rem;
+				a {
+					color: base.$text-color;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+	[role="dialog"] {
 		h3 {
 			font-family: base.$font-family;
-            font-size: 0.8rem;
-            font-weight: 700;
+			font-size: 0.8rem;
+			font-weight: 700;
 		}
-        p {
-            font-family: base.$font-family;
-            font-size: 0.8rem;
-        }
 	}
 }
+

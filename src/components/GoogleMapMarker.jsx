@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
 	AdvancedMarker,
 	Pin,
@@ -36,13 +37,14 @@ function GoggleMapMarker(props) {
 			</AdvancedMarker>
 			{infowindowOpen && (
 				<InfoWindow
+				headerContent={<h3>{props.title}</h3>}
                 className="map__info-window"
 					anchor={marker}
-					maxWidth={200}
+					maxWidth={260}
 					onCloseClick={() => setInfowindowOpen(false)}
 				>
-					<h3>{props.title}</h3>
                     <p>{props.introText}</p>
+					<p className="read-more"><Link to={`/${props._id}`}>Read more</Link></p>
 				</InfoWindow>
 			)}
 		</>

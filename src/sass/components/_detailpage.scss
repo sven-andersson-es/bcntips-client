@@ -106,6 +106,9 @@
 	&__body-text {
 		font-size: 1rem;
 		margin-bottom: 0.5rem;
+		p {
+			margin-bottom: 0.5rem;
+		}
 		@include base.responsive("medium") {
 		}
 	}

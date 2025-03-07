@@ -148,3 +148,22 @@
 		}
 	}
 }
+.rsw-editor {
+	border-radius: 0 !important;
+	select {
+		display: block;
+		width: auto;
+		padding: auto;
+		font-size: auto;
+		line-height: 1;
+		background-color: base.$white-color;
+		background-clip: padding-box;
+		border: none;
+		height: auto;
+	}
+	.rsw-ce {
+		background-color: base.$white-color;
+		border-radius: 0;
+		padding: 1rem;
+	}
+}

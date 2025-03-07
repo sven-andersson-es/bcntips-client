@@ -19,14 +19,14 @@ function HomePage() {
 	const [favouriteTips, setFavouriteTips] = useState([]);
 
 	const [tips, setTips] = useState([]);
-	const [tipsLoading, setTipsLoading] = useState(false)
+	const [tipsLoading, setTipsLoading] = useState(true);
 	const [filterObject, setFilterObject] = useState({
 		category: [],
 		barrio: [],
 	});
 	const [filter, setFilter] = useState("");
 	const getAllTips = (filter) => {
-		setTipsLoading(true)
+		setTipsLoading(true);
 		tipService
 			.getAllTips(filter)
 			.then((response) => {
@@ -37,7 +37,6 @@ function HomePage() {
 	};
 
 	const filterTips = (type, id, action) => {
-
 		let newFilterObject = filterObject;
 		if (action) {
 			if (newFilterObject[type].indexOf(id) === -1) {
@@ -54,7 +53,6 @@ function HomePage() {
 
 		const queryStrings = new URLSearchParams(newFilterObject);
 		setFilter(queryStrings.toString());
-
 	};
 
 	const getFavouriteTips = () => {
@@ -81,12 +79,19 @@ function HomePage() {
 		<>
 			<GoogleMap tips={tips} />
 			<FilterBar filterTips={filterTips} />
-			<TipList
-				tips={tips}
-				favouriteTips={favouriteTips}
-				updateFavouriteTips={updateFavouriteTips}
-				tipsLoading={tipsLoading}
-			/>
+			{tipsLoading && (
+				<div className="loader__placeholder">
+					<div className="loader__spinner--grey"></div>
+				</div>
+			)}
+			{!tipsLoading && (
+				<TipList
+					tips={tips}
+					favouriteTips={favouriteTips}
+					updateFavouriteTips={updateFavouriteTips}
+					tipsLoading={tipsLoading}
+				/>
+			)}
 		</>
 	);
 }

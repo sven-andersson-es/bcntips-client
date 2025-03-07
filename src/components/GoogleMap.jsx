@@ -17,7 +17,7 @@ function GoogleMap(props) {
 				<Map
 					style={{ width: "100%", height: "20rem" }}
 					defaultCenter={{ lat: 41.39357181136263, lng: 2.1644247186204675 }}
-					defaultZoom={13}
+					defaultZoom={12}
 					mapId={"e697e4583aa87545"}
 					renderingType={"VECTOR"}
 					gestureHandling={"greedy"}

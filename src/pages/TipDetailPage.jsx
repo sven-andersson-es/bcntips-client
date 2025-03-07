@@ -113,7 +113,13 @@ function TipDetailPage() {
 		getTip(detailTipId);
 	}, []);
 	return (
-		!loadingTip && (
+		<>
+		{loadingTip && (
+			<div className="loader__placeholder full-height">
+				<div className="loader__spinner--grey"></div>
+			</div>
+		)}
+		{!loadingTip && (
 			<>
 				<section className="max-width-container detail-page">
 					<article className="detail-page">
@@ -196,8 +202,8 @@ function TipDetailPage() {
 								</a>
 							</div>
 							<div className="detail-page__intro-text">{tip.introText}</div>
-							<div className="detail-page__body-text">{tip.bodyText}</div>
-
+							<div className="detail-page__body-text" dangerouslySetInnerHTML={{ __html: "<p>" + tip.bodyText.replace(/(?:\r\n|\r|\n)/g, '</p><p>') + "</p>" }} />
+									
 							{isLoggedIn && (
 								<>
 									<button
@@ -247,7 +253,8 @@ function TipDetailPage() {
 					</article>
 				</section>
 			</>
-		)
+		)}
+		</>
 	);
 }
 
