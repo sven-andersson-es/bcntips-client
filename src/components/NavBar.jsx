@@ -136,7 +136,7 @@ function NavBar(props) {
 							<Link to="/">Find tips in Barcelona</Link>
 						</li>
 						<li>
-							<Link to="/about">About</Link>
+							<a href="https://github.com/sven-andersson-es/bcntips-client">About</a>
 						</li>
 
 						{isLoggedIn && (
@@ -153,7 +153,7 @@ function NavBar(props) {
 						{isLoggedInSuper && (
 							<>
 								<li>
-									<Link reloadDocument to="/tip/create">Add a tip</Link>
+									<Link reloadDocument to="/admin/tip/create">Add a tip</Link>
 								</li>
 							</>
 						)}

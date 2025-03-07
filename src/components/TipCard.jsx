@@ -48,7 +48,7 @@ function TipCard(props) {
 			<article className="tip-card">
 				{imageUrl && (
 					<div className="tip-card__image">
-						<Link to={`/${_id}`}>
+						<Link to={`/tip/${_id}`}>
 						<AdvancedImage
 									cldImg={cld
 										.image(imageUrl)
@@ -66,7 +66,7 @@ function TipCard(props) {
 				)}
 				{!imageUrl && (
 					<div className="tip-card__image-placeholder">
-						<Link to={`/${_id}`}>
+						<Link to={`/tip/${_id}`}>
 							<img
 								src="/placeholder-image.jpg"
 								alt={title}

@@ -11,9 +11,9 @@ import TipAdminPage from "./pages/TipAdminPage"
 import TipDetailPage from "./pages/TipDetailPage";
 
 //AUTH COMPONENTS
-import IsPrivate from "./components/IsPrivate";
 import IsPrivateSuper from "./components/IsPrivateSuper";
 import IsAnon from "./components/IsAnon";
+import NotFound from "./pages/NotFoundPage";
 
 function App() {
   const [menuActive,setMenuActive] = useState(false);
@@ -25,19 +25,20 @@ function App() {
 			</header>
 			<main>
 				<Routes>
+          			<Route path="*" element={<NotFound />} />
 					<Route path="/" element={<HomePage />} />
 					<Route
-						path="/:tipId"
+						path="/tip/:tipId"
 						element={ <TipDetailPage />  } 
 					/>
           			<Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} />
           			<Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} />
 					<Route
-						path="/tip/create"
+						path="/admin/tip/create"
 						element={ <IsPrivateSuper> <TipAdminPage /> </IsPrivateSuper> } 
 					/>
 					<Route
-						path="/tip/update/:tipId"
+						path="/admin/tip/update/:tipId"
 						element={ <IsPrivateSuper> <TipAdminPage /> </IsPrivateSuper> } 
 					/>
 				</Routes>

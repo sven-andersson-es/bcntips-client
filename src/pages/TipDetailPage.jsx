@@ -127,7 +127,7 @@ function TipDetailPage() {
 							<>
 								<div className="detail-page__edit-buttons">
 									<Link
-										to={`/tip/update/${tip._id}`}
+										to={`/admin/tip/update/${tip._id}`}
 										className="detail-page__edit-button btn--inline"
 									>
 										Edit tip
