@@ -131,8 +131,6 @@ function TipAdminPage() {
 
 	const handleInput = (event) => {
 		const value = event.target.value;
-		console.log("form:", form);
-
 		setForm({
 			...form,
 			[event.target.name]: value,
@@ -159,7 +157,6 @@ function TipAdminPage() {
 			user: form.user,
 		};
 		const mergedObject = { ...tipObject, imageUrl: imageUrl };
-		console.log(mergedObject);
 
 		if (create) {
 			createTip(mergedObject);
@@ -473,7 +470,7 @@ function TipAdminPage() {
 								<label>{imageUrl ? "Change image" : "Upload image"}</label>
 								<div className="form__file-buttons">
 									<label className="form__file-button-label" htmlFor="file">
-										{imageUrl ? "Replace image" : "Upload a new image"}
+										{imageUrl ? "Replace" : "Upload a new image"}
 									</label>
 									<input
 										type="file"

@@ -14,19 +14,29 @@
     justify-content: center;
     align-items: center;
 	&__content {
+        position: fixed;
+        top: 25%;
+        --modalWidth: 20rem;
+        width: var(--modalWidth);
+        left: calc(50% - var(--modalWidth)/2);
+        z-index: 300;
         transition: 300ms;
 		background-color: base.$white-color;
 		padding: 1rem;
         padding-bottom: 2rem;
 		border: 2px solid base.$border-active-color;
-		width: 80%;
-        max-width: 30rem;
+		
+        @include base.responsive("medium") {
+            --modalWidth: 30rem;
+        }
         &--close {
             display: flex;
             justify-content: right;
             &--button {
                 border: none;
                 background: transparent;
+                cursor: pointer;
+                color: base.$text-color;
             }
 
         }
@@ -34,4 +44,25 @@
             padding: 1rem;
         }
     }
+    &__confirm-buttons {
+		display: flex;
+		flex-basis: 0;
+		justify-content: space-between;
+		margin: 1rem 0 0;
+        padding: 0 1rem;
+	}
+	&__confirm-button-cancel {
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M7.404 18v-1h7.254q1.556 0 2.65-1.067q1.096-1.067 1.096-2.606t-1.095-2.596q-1.096-1.058-2.651-1.058H6.916l2.965 2.965l-.708.708L5 9.173L9.173 5l.708.708l-2.965 2.965h7.742q1.963 0 3.355 1.354q1.39 1.354 1.39 3.3t-1.39 3.31T14.657 18z'/%3E%3C/svg%3E");
+		padding-left: 3rem !important;
+		background-size: 2rem auto;
+		background-repeat: no-repeat;
+		background-position: 0.5rem 0.5rem;
+	}
+	&__confirm-button-delete {
+		background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF0000' d='M7.616 20q-.672 0-1.144-.472T6 18.385V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zM17 6H7v12.385q0 .269.173.442t.443.173h8.769q.23 0 .423-.192t.192-.424zM9.808 17h1V8h-1zm3.384 0h1V8h-1zM7 6v13z'/%3E%3C/svg%3E");
+		padding-left: 3rem !important;
+		background-size: 2rem auto;
+		background-repeat: no-repeat;
+		background-position: 0.5rem 0.5rem;
+	}
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 //CLOUDINARY
 import cld from "../config/cloudinary.config";
@@ -15,9 +15,12 @@ import placesService from "../services/places.service";
 
 //CONTEXT
 import { AuthContext } from "../context/auth.context";
+import { MessageContext } from "../context/message.context";
 
 function TipDetailPage() {
 	const { isLoggedIn, isLoggedInSuper } = useContext(AuthContext);
+	const { triggerModal, deleteConfirm, setDeleteConfirm, setModalActive } =
+		useContext(MessageContext);
 	const [favourite, setFavourite] = useState(false);
 	const { tipId: detailTipId } = useParams();
 
@@ -25,6 +28,7 @@ function TipDetailPage() {
 	const [tip, setTip] = useState({});
 	const [loadingTip, setLoadingTip] = useState(true);
 	//const [mapPlaceUri, setMapPlaceUri] = useState("https://maps.google.com");
+	const navigate = useNavigate();
 
 	const getTip = (tipId) => {
 		tipService
@@ -40,6 +44,39 @@ function TipDetailPage() {
 			})
 			.catch((error) => console.log(error));
 	};
+
+	const deleteTip = (tipId) => {
+		if (!deleteConfirm) {
+			triggerModal(
+				true,
+				`Are your sure you want to delete the tip ${tip.title}?`,
+				false,
+				true //delete confirm button
+			);
+		} else if (deleteConfirm) {
+			tipService
+				.deleteTip(tipId)
+				.then((response) => {
+					setDeleteConfirm(false)
+					setModalActive(false);
+					navigate("/");
+					triggerModal(true, `The tip has been deleted`, false, false);
+					return response.data;
+				})
+				.then((data) => {
+					getFavouriteTips();
+					//getMapsUri(data.mapPlaceId)
+				})
+				.catch((error) => console.log(error));
+		}
+	};
+
+	useEffect(() => {
+		if (!deleteConfirm) {
+			return;
+		}
+		deleteTip(detailTipId);
+	}, [deleteConfirm]);
 
 	const getFavouriteTips = () => {
 		authService
@@ -90,7 +127,9 @@ function TipDetailPage() {
 										Edit tip
 									</Link>
 									<Link
-										to={`/tip/update/${tip._id}`}
+										onClick={() => {
+											deleteTip(tip._id);
+										}}
 										className="detail-page__delete-button btn--inline"
 									>
 										Delete tip

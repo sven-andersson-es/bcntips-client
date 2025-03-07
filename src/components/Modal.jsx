@@ -1,18 +1,24 @@
 function Modal(props) {
-	const { modalActive, setModalActive, modalMessage, modalMessageType } =
-		props.props;
+	const {
+		modalActive,
+		setModalActive,
+		modalMessage,
+		modalMessageType,
+		setDeleteConfirm,
+		modalConfirmButtons,
+	} = props.props;
 
 	if (modalActive) {
 		return (
-			<div
-				onClick={() => {
-					setModalActive(!modalActive);
-				}}
-				className="modal"
-			>
+			<>
 				<div className="modal__content">
 					<div className="modal__content--close">
-						<button className="modal__content--close--button">
+						<button
+							className="modal__content--close--button"
+							onClick={() => {
+								setModalActive(!modalActive);
+							}}
+						>
 							<svg
 								width="21"
 								height="22"
@@ -32,8 +38,34 @@ function Modal(props) {
 						</button>
 					</div>
 					<div className="modal__content--message">{modalMessage}</div>
+					{modalConfirmButtons && (
+							<div className="modal__confirm-buttons">
+								<button
+									onClick={() => {
+										setModalActive(!modalActive);
+									}}
+									className="modal__confirm-button-cancel btn--inline"
+								>
+									Cancel
+								</button>
+								<button
+									onClick={() => {
+										setDeleteConfirm(true);
+									}}
+									className="modal__confirm-button-delete btn--inline"
+								>
+									Delete
+								</button>
+							</div>
+					)}
 				</div>
-			</div>
+				<div
+					className="modal"
+					onClick={() => {
+						setModalActive(!modalActive);
+					}}
+				></div>
+			</>
 		);
 	} else {
 		return <></>;
