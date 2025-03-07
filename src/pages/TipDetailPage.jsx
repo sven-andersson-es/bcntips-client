@@ -28,8 +28,8 @@ function TipDetailPage() {
 				return response.data;
 			})
 			.then((data) => {
-				getFavouriteTips();                
-                //getMapsUri(data.mapPlaceId)
+				getFavouriteTips();
+				//getMapsUri(data.mapPlaceId)
 			})
 			.catch((error) => console.log(error));
 	};
@@ -53,18 +53,18 @@ function TipDetailPage() {
 	};
 
 	const updateFavouriteTips = (tipId) => {
-        authService.updateFavourites(tipId).then((response) => {
-            setFavouriteTips(response.data);
+		authService.updateFavourites(tipId).then((response) => {
+			setFavouriteTips(response.data);
 			getFavouriteTips();
 		});
 	};
 
-    const getMapsUri = (mapPlaceId) => {
-        placesService.getMapsUri(mapPlaceId).then((response) => {            
-            setMapPlaceUri(response.data.googleMapsUri);
-        });
-    };
-    
+	const getMapsUri = (mapPlaceId) => {
+		placesService.getMapsUri(mapPlaceId).then((response) => {
+			setMapPlaceUri(response.data.googleMapsUri);
+		});
+	};
+
 	useEffect(() => {
 		getTip(detailTipId);
 	}, []);
@@ -74,20 +74,52 @@ function TipDetailPage() {
 			<>
 				<section className="max-width-container detail-page">
 					<article className="detail-page">
-						<div className="detail-page__image">
-							<img
-								src="https://media-cdn.tripadvisor.com/media/photo-s/07/fe/a5/66/catacroquet.jpg"
-								alt={tip.title}
-							/>
-							<div
-								className="detail-page__category-icon"
-								dangerouslySetInnerHTML={{
-									__html: atob(tip.category.categoryIcon),
-								}}
-							/>
-						</div>
+						{isLoggedInSuper && (
+							<>
+								<div className="detail-page__edit-buttons">
+									<Link
+										to={`/tip/update/${tip._id}`}
+										className="detail-page__edit-button btn--inline"
+									>
+										Edit tip
+									</Link>
+									<Link
+										to={`/tip/update/${tip._id}`}
+										className="detail-page__delete-button btn--inline"
+									>
+										Delete tip
+									</Link>
+								</div>
+							</>
+						)}
+
+						{tip.imageUrl && (
+							<div className="detail-page__image">
+								<img src={tip.imageUrl} alt={tip.title} />
+								<div
+									className="detail-page__category-icon"
+									dangerouslySetInnerHTML={{
+										__html: atob(tip.category.categoryIcon),
+									}}
+								/>
+							</div>
+						)}
+						{!tip.imageUrl && (
+							<div className="detail-page__image-placeholder">
+								<img src="/placeholder-image.jpg" alt={tip.title} />
+								<div
+									className="detail-page__category-icon"
+									dangerouslySetInnerHTML={{
+										__html: atob(tip.category.categoryIcon),
+									}}
+								/>
+							</div>
+						)}
+
 						<div className="detail-page__content">
-							<div className="detail-page__title"><h1>{tip.title}</h1></div>
+							<div className="detail-page__title">
+								<h1>{tip.title}</h1>
+							</div>
 							<address className="detail-page__address">
 								{tip.street}, {tip.streetNo}
 								<br />
@@ -100,20 +132,19 @@ function TipDetailPage() {
 								</span>
 							</div>
 							<div className="detail-page__google-button">
-								<a href={tip.googleMapsUri ? tip.googleMapsUri : "https://maps.google.com" } className="btn__inverted">
-                                Get directions on Google Maps
+								<a
+									href={
+										tip.googleMapsUri
+											? tip.googleMapsUri
+											: "https://maps.google.com"
+									}
+									className="btn--inverted"
+								>
+									Get directions on Google Maps
 								</a>
 							</div>
 							<div className="detail-page__intro-text">{tip.introText}</div>
 							<div className="detail-page__body-text">{tip.bodyText}</div>
-
-							{isLoggedInSuper && (
-								<>
-									<div className="detail-page__edit">
-										<Link to={`/tip/update/${tip._id}`}>Edit</Link>
-									</div>
-								</>
-							)}
 
 							{isLoggedIn && (
 								<>

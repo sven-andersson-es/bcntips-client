@@ -19,16 +19,19 @@ function HomePage() {
 	const [favouriteTips, setFavouriteTips] = useState([]);
 
 	const [tips, setTips] = useState([]);
+	const [tipsLoading, setTipsLoading] = useState(false)
 	const [filterObject, setFilterObject] = useState({
 		category: [],
 		barrio: [],
 	});
 	const [filter, setFilter] = useState("");
 	const getAllTips = (filter) => {
+		setTipsLoading(true)
 		tipService
 			.getAllTips(filter)
 			.then((response) => {
 				setTips(response.data);
+				setTipsLoading(false);
 			})
 			.catch((error) => console.log(error));
 	};
@@ -82,6 +85,7 @@ function HomePage() {
 				tips={tips}
 				favouriteTips={favouriteTips}
 				updateFavouriteTips={updateFavouriteTips}
+				tipsLoading={tipsLoading}
 			/>
 		</>
 	);

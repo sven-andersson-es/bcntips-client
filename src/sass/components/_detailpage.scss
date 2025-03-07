@@ -16,10 +16,50 @@
 			max-height: 15rem;
 			object-fit: cover;
 			@include base.responsive("medium") {
-				max-height: 20rem;
+				max-height: 25rem;
 			}
 		}
 	}
+	&__image-placeholder {
+		@extend .detail-page__image;
+		img {
+			width: 100%;
+			height: 100%;
+			max-height: 15rem;
+			object-fit: cover;
+			@include base.responsive("medium") {
+				max-height: 25rem;
+			}
+		}
+	}
+
+	/* 
+	
+		&__image {
+		width: 30%;
+		position: relative;
+		img {
+			width: 100%;
+			height: 100%;
+			max-height: 10rem;
+			object-fit: cover;
+		}
+		@include base.responsive("medium") {
+			width: 100%;
+		}
+	}
+	&__image-placeholder {
+		@extend .tip-card__image;
+		img {
+			object-fit: scale-down;
+
+			@include base.responsive("medium") {
+				border-bottom: 0.1rem solid base.$border-light-color;
+			}
+		}
+	}
+
+	*/
 	&__category-icon {
 		position: absolute;
 		width: 0.5rem * 6;
@@ -68,7 +108,7 @@
 		@include base.responsive("medium") {
 		}
 	}
-    &__tag {
+	&__tag {
 		display: inline-block;
 		font-size: 0.9rem;
 		line-height: 1.1;
@@ -97,7 +137,7 @@
 		@include base.responsive("medium") {
 		}
 	}
-	
+
 	&__like-button {
 		position: absolute;
 		width: 2rem;
@@ -123,5 +163,28 @@
 			@extend .detail-page__like-button;
 			color: #ff0000;
 		}
+	}
+	&__edit-buttons {
+		display: flex;
+		flex-basis: 0;
+		justify-content: space-between;
+		margin: 1rem 0;
+		//border-top: 1px solid base.$white-color;
+		//border-bottom: 1px solid base.$white-color;
+		// justify-content: center;
+	}
+	&__edit-button {
+		background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M13.654 21v-2.21l5.96-5.934l2.19 2.204l-5.94 5.94zm6.885-5.94l-.926-.945zm-6 5.056h.95l3.467-3.474l-.45-.494l-.475-.47l-3.493 3.488zM5 21V3h9.5L19 7.5v2.596h-1V8h-4V4H6v16h5.27v1zm13.506-4.852l-.475-.47l.925.964z'/%3E%3C/svg%3E");
+		padding-left: 3rem !important;
+		background-size: 2rem auto;
+		background-repeat: no-repeat;
+		background-position: 0.5rem 0.5rem;
+	}
+	&__delete-button {
+		background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF0000' d='M7.616 20q-.672 0-1.144-.472T6 18.385V6H5V5h4v-.77h6V5h4v1h-1v12.385q0 .69-.462 1.153T16.384 20zM17 6H7v12.385q0 .269.173.442t.443.173h8.769q.23 0 .423-.192t.192-.424zM9.808 17h1V8h-1zm3.384 0h1V8h-1zM7 6v13z'/%3E%3C/svg%3E");
+		padding-left: 3rem !important;
+		background-size: 2rem auto;
+		background-repeat: no-repeat;
+		background-position: 0.5rem 0.5rem;
 	}
 }

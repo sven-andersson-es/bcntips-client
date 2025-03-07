@@ -21,7 +21,33 @@
 		border-color: transparent;
 		outline-color: base.$border-active-color;
 	}
-	&__inverted {
+	&__small {
+		@extend .btn;
+		font-size: 0.8rem;
+		padding: 0.5rem;
+		&--white {
+			@extend .btn__small;
+			color: base.$text-color;
+			background-color: base.$white-color;
+			&:hover,
+			&:active,
+			&:focus {
+				color: base.$white-color;
+				background-color: base.$button-inverted-bg-color;
+			}
+		}
+		&--inverted {
+			@extend .btn__small;
+			color: base.$white-color;
+			background-color: base.$button-inverted-bg-color;
+			&:hover,
+			&:active,
+			&:focus {
+				background-color: base.$button-inverted-bg-active-color;
+			}
+		}
+	}
+	&--inverted {
 		@extend .btn;
 		color: base.$white-color;
 		background-color: base.$button-inverted-bg-color;

@@ -9,12 +9,14 @@ function TipCard(props) {
 	const { isLoggedIn, isLoggedInSuper } = useContext(AuthContext);
 	const {
 		_id,
+		imageUrl,
 		title,
 		introText,
 		barrio: { barrioName },
 		category: { categoryIcon, categoryName },
 		favouriteTips,
 		updateFavouriteTips,
+		tipsLoading
 	} = props;
 	//const favourite = true
 	const decodedIcon = atob(categoryIcon);
@@ -24,43 +26,62 @@ function TipCard(props) {
 		const isFavourite = favouriteTips.find((id) => {
 			return id === tipId;
 		});
-		setFavourite(isFavourite)
-		
+		setFavourite(isFavourite);
 	};
 
 	useEffect(() => {
 		setCardFavourite(_id);
 	}, [updateFavouriteTips]);
 
+
+	
+
 	return (
 		<>
 			<article className="tip-card">
-				<div className="tip-card__image">
-					<img
-						src="https://media-cdn.tripadvisor.com/media/photo-s/07/fe/a5/66/catacroquet.jpg"
-						alt={title}
-					/>
-					<div
-						className="tip-card__category-icon"
-						dangerouslySetInnerHTML={{ __html: decodedIcon }}
-					/>
-				</div>
+				{imageUrl && (
+					<div className="tip-card__image">
+						<Link to={`/${_id}`}>
+							<img src={imageUrl} alt={title} />
+						</Link>
+						<div
+							className="tip-card__category-icon"
+							dangerouslySetInnerHTML={{ __html: decodedIcon }}
+						/>
+					</div>
+				)}
+				{!imageUrl && (
+					<div className="tip-card__image-placeholder">
+						<Link to={`/${_id}`}>
+							<img
+								src="/placeholder-image.jpg"
+								alt={title}
+							/>
+						</Link>
+						<div
+							className="tip-card__category-icon"
+							dangerouslySetInnerHTML={{ __html: decodedIcon }}
+						/>
+					</div>
+				)}
+
 				<div className="tip-card__content">
-					<div className="tip-card__title">{title}</div>
-					<div className="tip-card__intro-text">{introText}</div>
-					<div className="tip-card__tag">
-						<span className="tip-card__tag--barrio">{barrioName}</span>
-					</div>
-					<div className="tip-card__buttons">
-						<Link to={`/${_id}`}>Read more</Link>
-					</div>
-					{isLoggedInSuper && (
-						<>
-							<div className="tip-card__edit">
-								<Link to={`/tip/update/${_id}`}>Edit</Link>
+					<div className="tip-card__content-layout">
+						<div className="tip-card__content-layout-top">
+							<div className="tip-card__title">{title}</div>
+							<div className="tip-card__tag">
+								<span className="tip-card__tag--barrio">{barrioName}</span>
 							</div>
-						</>
-					)}
+							<div className="tip-card__intro-text">{introText}</div>
+						</div>
+						<div className="tip-card__content-layout-bottom">
+							<div className="tip-card__buttons">
+								<Link className="btn__small--white" to={`/${_id}`}>
+									Read more
+								</Link>
+							</div>
+						</div>
+					</div>
 
 					{isLoggedIn && (
 						<>

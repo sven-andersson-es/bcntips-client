@@ -41,6 +41,7 @@ function TipAdminPage() {
 	const [searchPlace, setSearchPlace] = useState("");
 	const [searchPlaceResult, setSearchPlaceResult] = useState(undefined);
 	const [imageUrl, setImageUrl] = useState("");
+	const [uploadingImage, setUploadingImage] = useState(false);
 	const pageLocation = useLocation();
 
 	const formMode = () => {
@@ -161,8 +162,8 @@ function TipAdminPage() {
 	};
 
 	const handleFileUpload = (e) => {
+		setUploadingImage(true);
 		// console.log("The file to be uploaded is: ", e.target.files[0]);
-
 		const uploadData = new FormData();
 
 		// imageUrl => this name has to be the same as in the model since we pass
@@ -173,6 +174,7 @@ function TipAdminPage() {
 			.uploadImage(uploadData)
 			.then((response) => {
 				setImageUrl(response.data.fileUrl);
+				setUploadingImage(false);
 			})
 			.catch((error) => console.log(error));
 	};
@@ -443,6 +445,12 @@ function TipAdminPage() {
 							</div>
 						</section>
 						<section className="form__section">
+						
+							{uploadingImage && (
+								<div className="loader__placeholder">
+									<div className="loader__spinner"></div>
+								</div>
+							)}
 							{imageUrl && (
 								<div className="form__image-preview">
 									<img src={imageUrl} alt="" />
@@ -452,7 +460,7 @@ function TipAdminPage() {
 								<label>{imageUrl ? "Change image" : "Upload image"}</label>
 								<div className="form__file-buttons">
 									<label className="form__file-button-label" htmlFor="file">
-										{imageUrl ? "Replace the image" : "Upload a new image"}
+										{imageUrl ? "Replace image" : "Upload a new image"}
 									</label>
 									<input
 										type="file"
