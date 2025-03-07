@@ -125,3 +125,16 @@ h6 {
 button {
 	transition: 300ms;
 }
+
+//Links
+a.text-link {
+	color: $text-color;
+	text-decoration: underline;
+	display: inline-block;
+	margin: 0.5rem 0;
+	&:hover,
+	&:active,
+	&:focus {
+		$button-inverted-bg-active-color: #333333;
+	}
+}

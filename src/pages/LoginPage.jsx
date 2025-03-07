@@ -79,7 +79,7 @@ function LoginPage(props) {
 			</div>
 
 			<p>Would you like to save your favourite tips?</p>
-			<Link to={"/signup"}> Sign Up</Link>
+			<Link className="text-link" to={"/signup"}> Sign Up</Link>
 		</section>
 	);
 }
